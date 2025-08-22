@@ -335,6 +335,7 @@
             let totalGpaPoints = 0;
             let subjectCount = 0;
 
+            let hasFailed = false; 
             for (let i = 0; i < subjectInputs.length; i++) {
                 const subjectName = subjectInputs[i].value;
                 const mark = parseFloat(markInputs[i].value);
@@ -352,10 +353,18 @@
                     });
                     totalGpaPoints += result.gpa;
                     subjectCount++;
+                    if (result.grade==='F') {
+                        hasFailed=true;
+                    }
                 }
             }
 
-            let overallGPA = subjectCount > 0 ? (totalGpaPoints / subjectCount).toFixed(2) : '0.00';
+            let overallGPA;
+            if (subjectCount > 0) {
+                overallGPA = hasFailed? '0.00' : (totalGpaPoints / subjectCount).toFixed(2);
+            } else {
+                overallGPA = '0.00';
+            }
 
             localStorage.setItem('studentName', studentName);
             localStorage.setItem('semester', semester);
