@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dropdown Example</title>
+</head>
+<body>
+  <h2>GPA Calculator - Full Mark Selection</h2>
+  
+  <label for="fullMark">Full Mark</label>
+  <select id="fullMark">
+    <option value="50">50</option>
+    <option value="100" selected>100</option> <!-- ✅ Default option -->
+    <option value="200">200</option>
+  </select>
+
+  <button onclick="showValue()">Submit</button>
+
+  <p id="result"></p>
+
+  <script>
+    function showValue() {
+      const fullMark = document.getElementById("fullMark").value;
+      document.getElementById("result").textContent =
+        "You selected Full Mark: " + fullMark;
+    }
+  </script>
+</body>
+</html>
