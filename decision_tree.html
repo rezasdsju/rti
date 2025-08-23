@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Decision Tree Example</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Import the navbar styles from menu.html */
+        .navbar {
+            background: linear-gradient(135deg, #2c3e50 0%, #4a6491 100%);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            width: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            border-radius: 0;
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            height: 70px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+                
+        .logo {
+            display: flex;
+            align-items: center;
+            color: red;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: #43cbff;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            height: 100%;
+        }
+        
+        .nav-item {
+            position: relative;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: red;
+            text-decoration: none;
+            padding: 0 20px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-link i {
+            margin-right: 8px;
+            font-size: 18px;
+        }
+        
+        /* Separators between menu items */
+        .nav-item:not(:last-child)::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 24px;
+            width: 1px;
+            background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.5), transparent);
+        }
+        
+        /* Hover effects */
+        .nav-link:hover {
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.1), transparent);
+            color: cyan;
+        }
+        
+        .nav-link::before {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #43cbff, #9708cc);
+            border-radius: 4px 4px 0 0;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::before {
+            width: 70%;
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 24px;
+            color: red;
+        }
+        
+        /* Responsive styles for navbar */
+        @media screen and (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                flex-direction: column;
+                background: linear-gradient(135deg, #2c3e50 0%, #4a6491 100%);
+                width: 100%;
+                height: auto;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+                transition: all 0.5s ease;
+                padding: 20px 0;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .nav-item {
+                width: 100%;
+                height: 60px;
+                display: flex;
+                justify-content: center;
+            }
+            
+            .nav-item:not(:last-child)::after {
+                display: none;
+            }
+            
+            .nav-link {
+                width: 100%;
+                justify-content: center;
+                padding: 20px;
+            }
+            
+            .nav-link::before {
+                display: none;
+            }
+        }
+        
+        /* Content styles - Fixed background issue */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: red;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9; /* Solid background instead of gradient */
+        }
+        
+        #content-wrapper {
+            margin-top: 70px; /* Height of navbar */
+            padding: 20px;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: white; /* White background for content */
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            min-height: calc(100vh - 70px);
+        }
+        
+        h1, h2, h3 {
+            color: blue;
+        }
+        
+        h1 {
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 20px;
+        }
+        
+        h2 {
+            color: red;
+            margin-top: 30px;
+        }
+        
+        .example-header {
+            background-color: #eaf2f8;
+            padding: 15px;
+            border-left: 5px solid #3498db;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+        
+        .source-box {
+            background-color: #d4edff;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        @media (min-width: 992px) {
+            .source-box {
+                float: right;
+                width: 300px;
+                margin-left: 20px;
+            }
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+            background-color: white;
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            color: blue;
+        }
+        
+        th {
+            background-color: #3498db;
+            color: black;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .solution-box {
+            background-color: #e8f8f5;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 5px solid #1abc9c;
+            color: red;
+        }
+        
+        .calculation {
+            background-color: #fef9e7;
+            padding: 15px;
+            margin: 15px 0;
+            border-left: 5px solid #f39c12;
+            border-radius: 5px;
+            color: red;
+        }
+        .calculation p{
+            color: black;
+        }
+        .calculation h4{
+            color: red;
+        }
+
+
+        .formula {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #ebebeb;
+            padding: 5px 10px;
+            border-radius: 3px;
+            display: inline-block;
+            margin: 5px 0;
+            color: blue;
+        }
+        
+        .highlight {
+            background-color: #fffacd;
+            padding: 2px 5px;
+            border-radius: 3px;
+            font-weight: bold;
+            color: blue;
+        }
+        
+        .tree-container {
+            margin: 30px 0;
+            text-align: center;
+            overflow-x: auto;
+            color: red;
+        }
+        
+        .tree-node {
+            display: inline-block;
+            border: 2px solid #3498db;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            line-height: 80px;
+            text-align: center;
+            margin: 10px;
+            background-color: white;
+            position: relative;
+            font-weight: bold;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+            color: red;
+        }
+        
+        .tree-leaf {
+            display: inline-block;
+            border: 2px solid #2ecc71;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            margin: 10px;
+            background-color: white;
+            position: relative;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+        
+        .tree-line {
+            position: absolute;
+            background-color: #3498db;
+            width: 2px;
+            height: 30px;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .tree-line-horizontal {
+            position: absolute;
+            background-color: #3498db;
+            width: 30px;
+            height: 2px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .decision {
+            color: #e74c3c;
+            font-weight: bold;
+            padding: 10px;
+            background-color: #ffecb3;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .note {
+            background-color: #f5eef8;
+            padding: 15px;
+            border-left: 5px solid #9b59b6;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .done {
+            text-align: center;
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-top: 30px;
+            padding: 15px;
+            background-color: #e8f8f5;
+            border-radius: 5px;
+        }
+        
+        /* Back button styles */
+        .back-button {
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .back-button a {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #2c3e50 0%, #4a6491 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .back-button a:hover {
+            background: linear-gradient(135deg, #4a6491 0%, #2c3e50 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .clearfix::after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <div id="menu-container"></div>
+    
+    <div id="content-wrapper">
+        <div class="example-header">
+            <h1>Example-01: Make a decision tree for the following dataset</h1>
+        </div>
+        
+        <div class="source-box">
+            <strong>Source:</strong> 
+            <a href="https://youtu.be/CWzpomtLqqs?si=nD00DEl7oOo62hWh" target="_blank">Decision Tree Tutorial Video</a>
+        </div>
+        
+        <div class="clearfix"></div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Day</th>
+                    <th>Weather</th>
+                    <th>Temperature</th>
+                    <th>Humidity</th>
+                    <th>Wind</th>
+                    <th>Play Football</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Day_1</td>
+                    <td>Sunny</td>
+                    <td>Hot</td>
+                    <td>High</td>
+                    <td>Weak</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Day_2</td>
+                    <td>Sunny</td>
+                    <td>Hot</td>
+                    <td>High</td>
+                    <td>Strong</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Day_3</td>
+                    <td>Cloudy</td>
+                    <td>Hot</td>
+                    <td>High</td>
+                    <td>Weak</td>
+                    <td>Yes</td>
+                </tr>
+                <!-- More rows would be here in a complete implementation -->
+                <tr>
+                    <td>Day_14</td>
+                    <td>Rain</td>
+                    <td>Mild</td>
+                    <td>High</td>
+                    <td>Strong</td>
+                    <td>No</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h2>Solution</h2>
+        
+        <div class="solution-box">
+            <h3>Initial Calculations</h3>
+            
+            <div class="calculation">
+                <p>Total number of Sunny Days = 5</p>
+                <p>Total number of Cloudy Days = 4</p>
+                <p>Total number of Rainy Days = 5</p>
+                <p>Total = 14</p>
+                <p>Total Positive ("Yes") = 9</p>
+                <p>Total Negative ("No") = 5</p>
+            </div>
+            
+            <h3>Calculate IG (Information Gain) of Weather</h3>
+            
+            <div class="calculation">
+                <h4>Step 1: Entropy of entire Dataset</h4>
+                <p class="formula">Total Entropy(S) = -(p₊)log₂(p₊) - (p₋)log₂(p₋)</p>
+                <p>Where:</p>
+                <ul>
+                    <li>p₊ = Positive Class Proportion ("Yes") = 9/14</li>
+                    <li>p₋ = Negative Class Proportion ("No") = 5/14</li>
+                </ul>
+                <p class="formula">S{+9,-5} = -9/14 log₂(9/14) - 5/14 log₂(5/14) = 0.94</p>
+            </div>
+            
+            <div class="calculation">
+                <h4>Step 2: Entropy of All Attributes</h4>
+                
+                <h5>Weather Part</h5>
+                <p>Entropy of Sunny:</p>
+                <p class="formula">Entropy(Sunny){+2,-3} = -2/5 log₂(2/5) - 3/5 log₂(3/5) = 0.97</p>
+                
+                <p>Entropy of Cloudy:</p>
+                <p class="formula">Entropy(Cloudy){+4,-0} = -4/4 log₂(4/4) - 0/4 log₂(0/4) = 0</p>
+                
+                <p>Entropy of Rain:</p>
+                <p class="formula">Entropy(Rain){+3,-2} = -3/5 log₂(3/5) - 2/5 log₂(2/5) = 0.97</p>
+                
+                <p>Information Gain:</p>
+                <p class="formula">IG(Weather) = 0.94 - (5/14)(0.97) - (4/14)(0) - (5/14)(0.97) = 0.246</p>
+            </div>
+            
+            <!-- Similar sections for Temperature, Humidity, and Wind would follow -->
+            
+            <div class="note">
+                <p>Now we have:</p>
+                <ul>
+                    <li>IG(S, weather) = 0.246</li>
+                    <li>IG(S, temperature) = 0.029</li>
+                    <li>IG(S, humidity) = 0.15</li>
+                    <li>IG(S, wind) = 0.0478</li>
+                </ul>
+                <p class="highlight">IG<sub>max</sub> (max of four) = 0.246 (weather)</p>
+                <p>So, Weather will be the root node</p>
+            </div>
+        </div>
+        
+        <div class="tree-container">
+            <div class="tree-node">Weather</div>
+            
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+                <div style="margin: 10px;">
+                    <div class="tree-line"></div>
+                    <div class="tree-node">Sunny</div>
+                </div>
+                <div style="margin: 10px;">
+                    <div class="tree-line"></div>
+                    <div class="tree-node">Cloudy</div>
+                    <div class="tree-line"></div>
+                    <div class="decision">Yes</div>
+                </div>
+                <div style="margin: 10px;">
+                    <div class="tree-line"></div>
+                    <div class="tree-node">Rainy</div>
+                </div>
+            </div>
+            
+            <!-- Second level for Sunny -->
+            <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+                <div style="margin: 10px;">
+                    <div class="tree-line"></div>
+                    <div class="tree-node">Humidity</div>
+                    
+                    <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+                        <div style="margin: 10px;">
+                            <div class="tree-line"></div>
+                            <div class="tree-leaf">High</div>
+                            <div class="tree-line"></div>
+                            <div class="decision">No</div>
+                        </div>
+                        <div style="margin: 10px;">
+                            <div class="tree-line"></div>
+                            <div class="tree-leaf">Normal</div>
+                            <div class="tree-line"></div>
+                            <div class="decision">Yes</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Second level for Rainy -->
+            <div style="display: flex; justify-content: center; flex-wrap: wrap;">
+                <div style="margin: 10px;">
+                    <div class="tree-line"></div>
+                    <div class="tree-node">Wind</div>
+                    
+                    <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+                        <div style="margin: 10px;">
+                            <div class="tree-line"></div>
+                            <div class="tree-leaf">Strong</div>
+                            <div class="tree-line"></div>
+                            <div class="decision">No</div>
+                        </div>
+                        <div style="margin: 10px;">
+                            <div class="tree-line"></div>
+                            <div class="tree-leaf">Weak</div>
+                            <div class="tree-line"></div>
+                            <div class="decision">Yes</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="done">Solution Done</div>
+        <div class="back-button"><a href='tutorial_of.html'>Back</a></div>
+    </div>
+
+    <script>
+        fetch("menu.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("menu-container").innerHTML = data;
+                
+                // Now that the content is loaded, get the elements and add the event listener
+                const hamburger = document.querySelector('.hamburger');
+                const navMenu = document.querySelector('.nav-menu');
+                
+                if (hamburger && navMenu) {
+                    hamburger.addEventListener('click', () => {
+                        navMenu.classList.toggle('active');
+                        
+                        const icon = hamburger.querySelector('i');
+                        if (navMenu.classList.contains('active')) {
+                            icon.classList.remove('fa-bars');
+                            icon.classList.add('fa-times');
+                        } else {
+                            icon.classList.remove('fa-times');
+                            icon.classList.add('fa-bars');
+                        }
+                    });
+                }
+            });
+    </script>
+</body>
+</html>
