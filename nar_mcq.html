@@ -91,7 +91,36 @@
     .mute{ color: var(--muted) }
     .footer-note{ text-align:center; color:var(--muted); margin: 16px 0 40px; font-size:13px }
     .score-badge{ font-weight:800; color:#052e16; background:linear-gradient(180deg, #86efac, #22c55e); border-radius:9999px; padding:6px 12px; border:1px solid var(--accent-weak) }
-
+        .back-button {
+            display: inline-block;
+            margin: 30px auto;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #2c3e50 0%, #4a6491 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            max-width: 200px;
+            justify-content: center;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(135deg, #4a6491 0%, #2c3e50 100%);
+        }
+        
+        .button-container {
+            display: flex;
+            justify-content: center;
+        }
     @media (max-width:640px){ .q-head{ flex-direction:column } }
   </style>
 </head>
@@ -161,8 +190,18 @@
       </div>
       <button id="submitBtn" class="primary" disabled>Submit Exam</button>
     </div>
-
-    <p class="footer-note">Made for teaching practice • Works fully offline in the browser</p>
+        <div class="button-container">
+            <a href='index.html' class='back-button'>
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+        </div>
+        <div class="button-container">
+            <a href='mcq_of.html' class='back-button'>
+                <i class="fas fa-arrow-left"></i> Back to Previous Page
+            </a>
+        </div>
+    <!--
+    <p class="footer-note">Made for teaching practice • Works fully offline in the browser</p> -->
   </main>
 
   <script>
