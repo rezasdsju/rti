@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Narration MCQ Exam</title>
+  <style>
+    :root{
+      --bg:#0f172a; /* slate-900 */
+      --card:#111827; /* gray-900 */
+      --muted:#94a3b8; /* slate-400 */
+      --text:#e5e7eb; /* gray-200 */
+      --accent:#22c55e; /* green-500 */
+      --accent-weak:#16a34a; /* green-600 */
+      --danger:#ef4444; /* red-500 */
+      --warning:#f59e0b; /* amber-500 */
+      --info:#60a5fa; /* blue-400 */
+      --ring: rgba(34,197,94,0.4);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: linear-gradient(180deg, #0b1220, var(--bg));
+      color: var(--text);
+    }
+    .container{ max-width: 1100px; margin: 0 auto; padding: 24px; }
+    header{
+      position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(2,6,23,0.92), rgba(2,6,23,0.6));
+      border-bottom: 1px solid rgba(148,163,184,0.15);
+    }
+    .header-inner{ display:flex; align-items:center; gap:16px; padding:14px 24px; }
+    .brand{ font-weight:700; letter-spacing:0.3px; }
+    .pill{ padding: 6px 10px; background: #0b1324; border:1px solid rgba(148,163,184,0.15); border-radius: 9999px; color: var(--muted); font-size:12px; }
+    .timer{ margin-left:auto; font-variant-numeric: tabular-nums; font-weight:700; padding:6px 12px; border-radius:10px; background:#0b1a2f; border:1px solid rgba(96,165,250,0.3); color:#bfdbfe; }
+    .controls{ display:flex; gap:8px; }
+    button{
+      background: #0b1220; color: var(--text); border:1px solid rgba(148,163,184,0.2); border-radius:12px; padding:10px 14px; cursor:pointer; font-weight:600;
+    }
+    button:hover{ border-color: rgba(148,163,184,0.35); }
+    button.primary{ background: linear-gradient(180deg, var(--accent), var(--accent-weak)); border-color: transparent; color:#052e16; }
+    button.primary:hover{ filter: brightness(0.98); }
+
+    .card{ background: #0b1220; border:1px solid rgba(148,163,184,0.15); border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.35); }
+    .intro{ padding: 20px; margin-top: 16px; }
+    .intro p{ color: var(--muted); margin:8px 0 0; }
+
+    .meta{ display:flex; flex-wrap:wrap; gap:12px; margin-top:10px; }
+    .meta .chip{ font-size: 13px; padding:6px 10px; border-radius:8px; background:#091225; border:1px solid rgba(148,163,184,0.2); color:#cbd5e1 }
+
+    .question{ padding: 20px; border-top: 1px solid rgba(148,163,184,0.12); }
+    .q-head{ display:flex; gap:10px; align-items:flex-start; }
+    .q-num{ width:34px; height:34px; border-radius:50%; display:grid; place-content:center; background:#0b1a2f; color:#bfdbfe; font-weight:700; border:1px solid rgba(96,165,250,0.35) }
+    .q-text{ font-weight:600; line-height:1.4 }
+
+    .options{ margin-top:12px; display:grid; gap:10px; }
+
+    /* Custom radio style */
+    .option{
+      display:flex; align-items:flex-start; gap:12px; padding:12px; border:1px solid rgba(148,163,184,0.18); border-radius:12px; cursor:pointer; background:#0a1020;
+    }
+    .option:hover{ border-color: rgba(148,163,184,0.32) }
+    .option input{ appearance:none; -webkit-appearance:none; width:18px; height:18px; border-radius: 50%; border:2px solid #93c5fd; margin-top:3px; display:inline-grid; place-content:center; outline:none; }
+    .option input::before{ content:""; width:10px; height:10px; border-radius:50%; transform: scale(0); transition:120ms transform ease-in-out; background: #60a5fa; }
+    .option input:checked::before{ transform: scale(1); }
+    .option .opt-text{ flex:1; }
+
+    .actions{ position:sticky; bottom:0; background:linear-gradient(180deg, rgba(2,6,23,0), rgba(2,6,23,0.9) 25%, rgba(2,6,23,1)); padding:16px 24px; display:flex; gap:10px; justify-content:space-between; align-items:center; border-top:1px solid rgba(148,163,184,0.15);}
+
+    .result{ padding: 18px 20px; border-top: 1px solid rgba(148,163,184,0.12); background:#081427; }
+    .result strong{ color:#bbf7d0 }
+    .legend{ display:flex; gap:10px; flex-wrap:wrap; color:var(--muted); font-size:14px }
+    .legend span{ display:inline-flex; align-items:center; gap:6px; padding:4px 8px; background:#0b1324; border:1px solid rgba(148,163,184,0.2); border-radius:9999px }
+    .dot{ width:10px; height:10px; border-radius:50% }
+    .dot.correct{ background: var(--accent) }
+    .dot.wrong{ background: var(--danger) }
+    .dot.unanswered{ background: var(--muted) }
+
+    .correct{ border-color: rgba(34,197,94,0.6) !important; background: rgba(34,197,94,0.06) }
+    .wrong{ border-color: rgba(239,68,68,0.6) !important; background: rgba(239,68,68,0.06) }
+    .explain{ color:#cbd5e1; font-size:14px; margin-top:6px; opacity:0.95 }
+
+    .hidden{ display:none !important }
+    .mute{ color: var(--muted) }
+    .footer-note{ text-align:center; color:var(--muted); margin: 16px 0 40px; font-size:13px }
+    .score-badge{ font-weight:800; color:#052e16; background:linear-gradient(180deg, #86efac, #22c55e); border-radius:9999px; padding:6px 12px; border:1px solid var(--accent-weak) }
+
+    @media (max-width:640px){ .q-head{ flex-direction:column } }
+  </style>
+</head>
+<body>
+    <div id="menu-container"></div>
+    <script>
+        fetch("menu.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("menu-container").innerHTML = data;
+                
+                // Now that the content is loaded, get the elements and add the event listener
+                const hamburger = document.querySelector('.hamburger');
+                const navMenu = document.querySelector('.nav-menu');
+                
+                if (hamburger && navMenu) {
+                    hamburger.addEventListener('click', () => {
+                        navMenu.classList.toggle('active');
+                        
+                        const icon = hamburger.querySelector('i');
+                        if (navMenu.classList.contains('active')) {
+                            icon.classList.remove('fa-bars');
+                            icon.classList.add('fa-times');
+                        } else {
+                            icon.classList.remove('fa-times');
+                            icon.classList.add('fa-bars');
+                        }
+                    });
+                }
+            });
+    </script>
+  <header>
+    <div class="header-inner container">
+      <div class="brand">📝 Narration MCQ Exam</div>
+      <span class="pill">20 Questions • 20 Minutes • +1 / −0.25 / 0</span>
+      <div id="timer" class="timer" aria-live="polite">20:00</div>
+      <div class="controls">
+        <button id="startBtn" class="primary">Start Exam</button>
+        <button id="resetBtn" title="Start a new exam">New Exam</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card intro" id="intro">
+      <h2 style="margin:0 0 6px">Instructions</h2>
+      <ul>
+        <li>20 questions will be drawn randomly from the full pool.</li>
+        <li>All questions are on <strong>Narration (Direct/Indirect Speech)</strong>.</li>
+        <li>Scoring: Correct +1, Wrong −0.25, Unanswered 0.</li>
+        <li>Time limit: 20 minutes. Auto-submit when time ends.</li>
+        <li>All questions appear on one page — scroll to navigate.</li>
+      </ul>
+      <p class="mute">Tip: You can add this page inside your site’s <em>Quiz</em> section as <code>narration-exam.html</code>. No build tools required.</p>
+    </section>
+
+    <div id="summary" class="card result hidden" role="status" aria-live="polite"></div>
+
+    <form id="exam" class="card" autocomplete="off"></form>
+
+    <div class="actions">
+      <div class="legend">
+        <span><span class="dot correct"></span> Correct</span>
+        <span><span class="dot wrong"></span> Wrong</span>
+        <span><span class="dot unanswered"></span> Unanswered</span>
+      </div>
+      <button id="submitBtn" class="primary" disabled>Submit Exam</button>
+    </div>
+
+    <p class="footer-note">Made for teaching practice • Works fully offline in the browser</p>
+  </main>
+
+  <script>
+  // ----------------------------
+  // Utilities
+  // ----------------------------
+  const EXAM_SIZE = 20;
+  const EXAM_MINUTES = 20; // minutes
+  const STORAGE_KEY = 'narration_exam_state_v1';
+
+  const qs = (sel, el=document) => el.querySelector(sel);
+  const qsa = (sel, el=document) => [...el.querySelectorAll(sel)];
+  const pick = (arr, n) => {
+    const a = [...arr];
+    for (let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+    return a.slice(0, n);
+  };
+
+  function formatTime(s){
+    const m = Math.floor(s/60).toString().padStart(2,'0');
+    const r = Math.floor(s%60).toString().padStart(2,'0');
+    return `${m}:${r}`;
+  }
+
+  function saveState(state){ sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  function loadState(){ try{ return JSON.parse(sessionStorage.getItem(STORAGE_KEY)||'null'); }catch{return null} }
+  function clearState(){ sessionStorage.removeItem(STORAGE_KEY); }
+
+  // ----------------------------
+  // Question Pool (Narration)
+  // Each question: { id, q, options:[], answer: index, explain }
+  // ----------------------------
+  const QUESTIONS = [
+    {id:1,q:'Choose the correct indirect speech: He said, "I am tired."',options:['He said that he was tired.','He said that I was tired.','He said that he is tired.','He says that he was tired.'],answer:0,explain:'Backshift of tense in reported statement: am → was; pronoun he stays the same.'},
+    {id:2,q:'Choose the correct indirect speech: She said, "I have finished my work."',options:['She said that she had finished her work.','She said that she has finished her work.','She said that I had finished my work.','She says that she finished her work.'],answer:0,explain:'Present perfect → past perfect after a past reporting verb.'},
+    {id:3,q:'Change into indirect: They said, "We will go tomorrow."',options:['They said that they would go the next day.','They said that we would go the next day.','They said that they will go tomorrow.','They told that they would go tomorrow.'],answer:0,explain:'Will → would; tomorrow → the next day; pronoun we → they.'},
+    {id:4,q:'Choose the correct indirect speech: He said to me, "Do you like tea?"',options:['He asked me if I liked tea.','He told me if I like tea.','He asked me do I like tea.','He said me if I liked tea.'],answer:0,explain:'Yes/No question → asked + if/whether + subject + past.'},
+    {id:5,q:'Change into indirect: She said to him, "Where are you going?"',options:['She asked him where he was going.','She asked him where was he going.','She told him where he was going.','She said him where he was going.'],answer:0,explain:'Wh-question → asked + wh-word + statement order; are going → was going.'},
+    {id:6,q:'Choose the correct indirect: He said, "Open the door."',options:['He ordered to open the door.','He ordered me to open the door.','He told I open the door.','He requested me to opened the door.'],answer:1,explain:'Imperative → ordered/asked/told + object + to + verb.'},
+    {id:7,q:'Change into indirect: She said, "Don\'t be late."',options:['She told not to be late.','She told me not to be late.','She said me not to be late.','She asked that I not be late.'],answer:1,explain:'Negative imperative → told/asked + object + not to + verb.'},
+    {id:8,q:'Choose the correct indirect: He said, "May God bless you!"',options:['He prayed that God might bless me.','He wished that God might bless me.','He prayed that God may bless me.','He told that God bless me.'],answer:1,explain:'Optative sentence → wished/prayed that + might.'},
+    {id:9,q:'Change into indirect: He said, "Alas! I am ruined."',options:['He exclaimed with sorrow that he was ruined.','He exclaimed with joy that he was ruined.','He exclaimed that he was ruined.','He said that alas he was ruined.'],answer:0,explain:'Exclamatory with sorrow → exclaimed with sorrow that…'},
+    {id:10,q:'Choose the correct indirect: She said, "Hurrah! We have won."',options:['She exclaimed with joy that they had won.','She exclaimed that they have won.','She said with joy that they have won.','She exclaimed with sorrow that they had won.'],answer:0,explain:'Hurrah → exclaimed with joy; present perfect → past perfect.'},
+    {id:11,q:'Change into indirect: He said, "Let us go for a walk."',options:['He proposed that they should go for a walk.','He suggested that we will go for a walk.','He asked that they would go for a walk.','He told to go for a walk.'],answer:0,explain:'Let us → proposed/suggested that + should + base verb.'},
+    {id:12,q:'Choose indirect: She said to me, "Please help me."',options:['She requested to help her.','She requested me to help her.','She told me please help her.','She asked me that help her.'],answer:1,explain:'Polite request → requested + object + to + verb.'},
+    {id:13,q:'Indirect of: He said, "I was reading when you called."',options:['He said that he had been reading when I called.','He said that he was reading when I called.','He said that he had read when I called.','He said that I had been reading when he called.'],answer:0,explain:'Past continuous → past perfect continuous after past reporting verb; time clause remains in past simple.'},
+    {id:14,q:'Indirect of: She said, "I can solve it."',options:['She said that she could solve it.','She said that she can solve it.','She told that she could solve it.','She told to solve it.'],answer:0,explain:'Can → could; keep pronouns adjusted.'},
+    {id:15,q:'Indirect of: He said, "I must leave now."',options:['He said that he had to leave then.','He said that he must leave then.','He said that he must left now.','He said that he had to left then.'],answer:0,explain:'Must → had to (reported speech); now → then.'},
+    {id:16,q:'Indirect of: She said, "We are going next week."',options:['She said that they were going the following week.','She said that we were going the next week.','She said that they are going the next week.','She told that they were going following week.'],answer:0,explain:'Are going → were going; next week → the following week.'},
+    {id:17,q:'Indirect of: He said to me, "Who wrote this letter?"',options:['He asked me who had written that letter.','He asked me that who had written that letter.','He told me who had written this letter.','He asked me who has written that letter.'],answer:0,explain:'Wh-question + past perfect; this → that.'},
+    {id:18,q:'Indirect of: She said, "I may come later."',options:['She said that she might come later.','She said that she may come later.','She told that she might come later.','She told me that she might came later.'],answer:0,explain:'May → might after past reporting.'},
+    {id:19,q:'Indirect of: He said, "I have been waiting for an hour."',options:['He said that he had been waiting for an hour.','He said that he was waiting for an hour.','He told that he had been waited for an hour.','He said that he has been waiting for an hour.'],answer:0,explain:'Present perfect continuous → past perfect continuous.'},
+    {id:20,q:'Indirect of: She said to me, "Did you see the movie?"',options:['She asked me whether I had seen the movie.','She asked me did I see the movie.','She told me whether I saw the movie.','She asked that whether I had seen the movie.'],answer:0,explain:'Yes/No question → asked + whether/if + past perfect for past action.'},
+    {id:21,q:'Indirect of: He said, "Shut the window, please."',options:['He requested me to shut the window.','He told me shut the window.','He said me to shut the window.','He ordered me please to shut the window.'],answer:0,explain:'Polite imperative → requested + object + to + verb.'},
+    {id:22,q:'Indirect of: She said, "Don\'t touch it."',options:['She told me to not touch it.','She told me not to touch it.','She said me not touch it.','She asked me don\'t touch it.'],answer:1,explain:'Not to + base verb.'},
+    {id:23,q:'Indirect of: He said, "Where shall we meet?"',options:['He asked where they should meet.','He asked where shall they meet.','He told where they should meet.','He asked me where we should meet.'],answer:0,explain:'Shall → should in reported questions; general question so no object needed.'},
+    {id:24,q:'Indirect of: She said, "Bring me a glass of water."',options:['She asked me to bring her a glass of water.','She told to bring a glass of water for her.','She requested that I brought her a glass of water.','She said me to bring a glass of water.'],answer:0,explain:'Asked/requested + object + to + base verb; pronouns change.'},
+    {id:25,q:'Indirect of: He said, "I saw her yesterday."',options:['He said that he had seen her the previous day.','He said that he saw her the previous day.','He said that he had seen her yesterday.','He told that he had seen her yesterday.'],answer:0,explain:'Past simple → past perfect; yesterday → the previous day.'},
+    {id:26,q:'Indirect of: She said, "I will be careful."',options:['She said that she would be careful.','She said that she will be careful.','She told that she would be careful.','She said that she would been careful.'],answer:0,explain:'Will → would; keep adjectives as-is.'},
+    {id:27,q:'Indirect of: He said, "Let him come in."',options:['He allowed him to come in.','He said that he should come in.','He suggested him to come in.','He proposed that he come in.'],answer:0,explain:'Let him → allowed/permitted + object + to + verb.'},
+    {id:28,q:'Indirect of: She said, "Who are you?"',options:['She asked who I was.','She asked who was I.','She told who I was.','She asked me who was I.'],answer:0,explain:'Wh-question → statement order; are → was; pronoun change you → I.'},
+    {id:29,q:'Indirect of: He said, "I will have finished by then."',options:['He said that he would have finished by then.','He said that he will have finished by then.','He told that he would have finished by then.','He said that he would had finished by then.'],answer:0,explain:'Future perfect → would have + past participle.'},
+    {id:30,q:'Indirect of: She said, "Do not make a noise."',options:['She told them not to make a noise.','She told them do not make a noise.','She said them not to make a noise.','She asked that they not to make a noise.'],answer:0,explain:'Negative imperative with object → told + object + not to + base verb.'},
+    {id:31,q:'Indirect of: He said, "This is my book."',options:['He said that that was his book.','He said that this was his book.','He told that that was my book.','He said that that is his book.'],answer:0,explain:'This → that; is → was; my → his.'},
+    {id:32,q:'Indirect of: She said, "We have been working since morning."',options:['She said that they had been working since morning.','She said that they have been working since morning.','She told that we had been working since morning.','She said that they were working since morning.'],answer:0,explain:'Present perfect continuous → past perfect continuous; we → they.'},
+    {id:33,q:'Indirect of: He said, "Can you help me?"',options:['He asked if I could help him.','He asked could I help him.','He told if I could help him.','He asked that I could help him.'],answer:0,explain:'Yes/No question → asked if + could.'},
+    {id:34,q:'Indirect of: She said, "Why did you come late?"',options:['She asked why I had come late.','She asked why I came late.','She told why I had come late.','She asked me why had I come late.'],answer:0,explain:'Wh-question; did come → had come in reported speech.'},
+    {id:35,q:'Indirect of: He said, "Let us start now."',options:['He suggested that they should start then.','He suggested that we should start now.','He told that they should start then.','He proposed that they will start then.'],answer:0,explain:'Let us → suggested/proposed that they should…; now → then.'},
+    {id:36,q:'Indirect of: She said, "I would rather stay home."',options:['She said that she would rather stay home.','She said that she had rather stay home.','She told that she would rather stayed home.','She said that she will rather stay home.'],answer:0,explain:'Would rather generally remains unchanged after a past reporting verb.'},
+    {id:37,q:'Indirect of: He said, "Please, don\'t smoke here."',options:['He requested me not to smoke there.','He requested me do not smoke there.','He told me not to smoke here.','He asked that I didn\'t smoke there.'],answer:0,explain:'Polite negative request → requested + object + not to + base verb; here → there.'},
+    {id:38,q:'Indirect of: She said, "I have to leave early today."',options:['She said that she had to leave early that day.','She said that she has to leave early today.','She told that she had to left early that day.','She said that she had to leave early today.'],answer:0,explain:'Have to → had to; today → that day.'},
+    {id:39,q:'Indirect of: He said, "Who will help me now?"',options:['He asked who would help him then.','He asked who will help him now.','He told who would help him now.','He asked me who would help him now.'],answer:0,explain:'Wh-future → would; now → then.'},
+    {id:40,q:'Indirect of: She said, "I am not feeling well."',options:['She said that she was not feeling well.','She said that she is not feeling well.','She told that she was not feeling well.','She said that I was not feeling well.'],answer:0,explain:'Present continuous → past continuous; pronoun change she → she.'}
+  ];
+
+  // ----------------------------
+  // State
+  // ----------------------------
+  let selectedIds = [];
+  let selectedMap = {}; // { qid: optionIndex }
+  let endTime = null; // epoch seconds
+  let submitted = false;
+  let timerHandle = null;
+
+  // ----------------------------
+  // DOM Elements
+  // ----------------------------
+  const examForm = qs('#exam');
+  const startBtn = qs('#startBtn');
+  const resetBtn = qs('#resetBtn');
+  const submitBtn = qs('#submitBtn');
+  const timerEl = qs('#timer');
+  const summaryEl = qs('#summary');
+  const introEl = qs('#intro');
+
+  // ----------------------------
+  // Rendering
+  // ----------------------------
+  function renderQuestions(){
+    examForm.innerHTML = '';
+    const chosen = QUESTIONS.filter(q=>selectedIds.includes(q.id));
+    chosen.forEach((q,idx)=>{
+      const qWrap = document.createElement('section');
+      qWrap.className = 'question';
+      qWrap.setAttribute('data-qid', q.id);
+
+      qWrap.innerHTML = `
+        <div class="q-head">
+          <div class="q-num">${idx+1}</div>
+          <div class="q-text">${q.q}</div>
+        </div>
+        <div class="options" role="radiogroup" aria-label="Question ${idx+1}">
+          ${q.options.map((opt,i)=>{
+            const checked = selectedMap[q.id] === i ? 'checked' : '';
+            return `
+              <label class="option">
+                <input type="radio" name="q_${q.id}" value="${i}" ${checked} aria-label="Option ${String.fromCharCode(65+i)}">
+                <div class="opt-text"><strong>(${String.fromCharCode(65+i)})</strong> ${opt}</div>
+              </label>
+            `;}).join('')}
+        </div>
+      `;
+
+      examForm.appendChild(qWrap);
+    });
+
+    // attach listeners
+    qsa('input[type=radio]', examForm).forEach(inp=>{
+      inp.addEventListener('change', e=>{
+        const name = e.target.name; // q_<id>
+        const qid = parseInt(name.split('_')[1],10);
+        selectedMap[qid] = parseInt(e.target.value,10);
+        persist();
+      });
+    })
+  }
+
+  function renderSummary(score, details){
+    const total = EXAM_SIZE;
+    const correct = details.filter(d=>d.correct).length;
+    const wrong = details.filter(d=>d.user!==null && !d.correct).length;
+    const unanswered = total - correct - wrong;
+
+    summaryEl.classList.remove('hidden');
+    summaryEl.innerHTML = `
+      <div style="display:flex; gap:12px; align-items:center; justify-content:space-between; flex-wrap:wrap">
+        <div style="display:flex; gap:12px; align-items:center">
+          <span class="score-badge" title="Final Score">Score: ${score.toFixed(2)} / ${total.toFixed(2)}</span>
+          <span class="chip">✅ ${correct} correct</span>
+          <span class="chip">❌ ${wrong} wrong</span>
+          <span class="chip">⏳ ${unanswered} unanswered</span>
+        </div>
+        <button onclick="window.scrollTo({top:0,behavior:'smooth'})">Back to Top</button>
+      </div>
+    `;
+  }
+
+  function markReview(details){
+    // Color options + show explanations
+    details.forEach((d,idx)=>{
+      const sec = qs(`.question[data-qid="${d.id}"]`);
+      if(!sec) return;
+      const labels = qsa('.option', sec);
+      labels.forEach((lab,i)=>{
+        lab.classList.remove('correct','wrong');
+        if(i===d.answer) lab.classList.add('correct');
+        if(d.user!==null && i===d.user && !d.correct) lab.classList.add('wrong');
+        lab.querySelector('input').disabled = true;
+      });
+      const exp = document.createElement('div');
+      exp.className = 'explain';
+      exp.textContent = `Explanation: ${d.explain}`;
+      sec.appendChild(exp);
+    });
+  }
+
+  // ----------------------------
+  // Exam Flow
+  // ----------------------------
+  function startExam(){
+    if(selectedIds.length===0){
+      selectedIds = pick(QUESTIONS, EXAM_SIZE).map(q=>q.id);
+    }
+    endTime = Math.floor(Date.now()/1000) + EXAM_MINUTES*60;
+    submitted = false;
+    submitBtn.disabled = false;
+    introEl.classList.add('hidden');
+    summaryEl.classList.add('hidden');
+    renderQuestions();
+    persist();
+    startTimer();
+  }
+
+  function submitExam(reason='manual'){
+    if(submitted) return;
+    submitted = true;
+    stopTimer();
+    submitBtn.disabled = true;
+
+    const chosen = QUESTIONS.filter(q=>selectedIds.includes(q.id));
+    const details = chosen.map(q=>{
+      const user = (q.id in selectedMap) ? selectedMap[q.id] : null;
+      const correct = user===q.answer;
+      return { id:q.id, user, answer:q.answer, correct, explain:q.explain };
+    });
+
+    const correctCount = details.filter(d=>d.correct).length;
+    const wrongCount = details.filter(d=>d.user!==null && !d.correct).length;
+    const score = correctCount*1 + wrongCount*(-0.25);
+
+    renderSummary(score, details);
+    markReview(details);
+
+    // lock state
+    persist();
+  }
+
+  function resetExam(){
+    stopTimer();
+    clearState();
+    selectedIds = [];
+    selectedMap = {};
+    endTime = null;
+    submitted = false;
+    timerEl.textContent = formatTime(EXAM_MINUTES*60);
+    submitBtn.disabled = true;
+    summaryEl.classList.add('hidden');
+    examForm.innerHTML = '';
+    introEl.classList.remove('hidden');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  // ----------------------------
+  // Timer
+  // ----------------------------
+  function startTimer(){
+    stopTimer();
+    tick();
+    timerHandle = setInterval(tick, 1000);
+  }
+  function stopTimer(){ if(timerHandle){ clearInterval(timerHandle); timerHandle=null; } }
+  function tick(){
+    const now = Math.floor(Date.now()/1000);
+    const remain = Math.max(0, endTime - now);
+    timerEl.textContent = formatTime(remain);
+
+    // color hints
+    if(remain <= 60){ timerEl.style.background = '#2b0b0b'; timerEl.style.color = '#fecaca'; timerEl.style.borderColor = 'rgba(248,113,113,0.4)'; }
+    else if(remain <= 5*60){ timerEl.style.background = '#2b1a0b'; timerEl.style.color = '#fde68a'; timerEl.style.borderColor = 'rgba(245,158,11,0.4)'; }
+
+    if(remain===0){ submitExam('timeout'); }
+  }
+
+  // ----------------------------
+  // Persistence (sessionStorage)
+  // ----------------------------
+  function persist(){
+    const state = { selectedIds, selectedMap, endTime, submitted };
+    saveState(state);
+  }
+  function restore(){
+    const state = loadState();
+    if(!state) return;
+    selectedIds = state.selectedIds||[];
+    selectedMap = state.selectedMap||{};
+    endTime = state.endTime||null;
+    submitted = !!state.submitted;
+
+    if(selectedIds.length){
+      introEl.classList.add('hidden');
+      renderQuestions();
+      if(submitted){
+        // rebuild review
+        const chosen = QUESTIONS.filter(q=>selectedIds.includes(q.id));
+        const details = chosen.map(q=>{
+          const user = (q.id in selectedMap) ? selectedMap[q.id] : null;
+          const correct = user===q.answer;
+          return { id:q.id, user, answer:q.answer, correct, explain:q.explain };
+        });
+        const correctCount = details.filter(d=>d.correct).length;
+        const wrongCount = details.filter(d=>d.user!==null && !d.correct).length;
+        const score = correctCount*1 + wrongCount*(-0.25);
+        submitBtn.disabled = true;
+        renderSummary(score, details);
+        markReview(details);
+      } else if(endTime){
+        submitBtn.disabled = false;
+        startTimer();
+      }
+    }
+  }
+
+  // ----------------------------
+  // Wiring
+  // ----------------------------
+  startBtn.addEventListener('click', () => {
+    if(loadState() && !submitted){ if(!confirm('Start a new attempt? Your current attempt will be replaced.')) return; }
+    resetExam();
+    startExam();
+  });
+  resetBtn.addEventListener('click', resetExam);
+  submitBtn.addEventListener('click', (e)=>{ e.preventDefault(); submitExam('manual'); window.scrollTo({top:0,behavior:'smooth'}); });
+
+  window.addEventListener('beforeunload', (e)=>{
+    // gentle reminder if exam running
+    const state = loadState();
+    if(state && state.selectedIds && state.selectedIds.length && !state.submitted){
+      e.preventDefault(); e.returnValue = '';
+    }
+  });
+
+  // Initialize
+  (function init(){
+    timerEl.textContent = formatTime(EXAM_MINUTES*60);
+    restore();
+  })();
+  </script>
+</body>
+</html>
