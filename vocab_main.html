@@ -3,11 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vocabulary MCQ Exam</title>
+  <title>Vocubalary MCQ Exam</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <!-- Google Sign-in -->
-  <meta name="google-signin-client_id" content="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com">
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
   <style>
     :root{
       --bg:#0f172a;
@@ -35,11 +32,11 @@
         flex: 1;
     }
     header{
-      width: 100%; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px);
+      width: 72%; position: sticky; top: 0; z-index: 10; backdrop-filter: blur(10px);
       background: linear-gradient(180deg, rgba(2,6,23,0.92), rgba(2,6,23,0.6));
       border-bottom: 1px solid rgba(148,163,184,0.15);
     }
-    .header-inner{ display:flex; align-items:center; gap:16px; padding:14px 24px; }
+    .header-inner{ display:flex; align-items:center; gap:16px; padding:14px 24px; /* width: 100%; max-width: none; margin: 0; */}
     .brand{ font-weight:700; letter-spacing:0.3px; }
     .pill{ padding: 6px 10px; background: #0b1324; border:1px solid rgba(148,163,184,0.15); border-radius: 9999px; color: var(--muted); font-size:12px; }
     .timer{ margin-left:auto; font-variant-numeric: tabular-nums; font-weight:700; padding:6px 12px; border-radius:10px; background:#0b1a2f; border:1px solid rgba(96,165,250,0.3); color:#bfdbfe; }
@@ -101,6 +98,7 @@
         border-color: rgba(250, 204, 21, 0.4); 
      }
 
+
     .correct{ border-color: rgba(34,197,94,0.6) !important; background: rgba(34,197,94,0.06) }
     .wrong{ border-color: rgba(239,68,68,0.6) !important; background: rgba(239,68,68,0.06) }
     
@@ -111,26 +109,6 @@
     .wrong-status { color: var(--danger); }
     .unanswered-status { color: #facc15; } 
     .explain{ color:#cbd5e1; font-size:14px; opacity:0.95; margin: 0; }
-
-    /* User profile */
-    .user-profile { display: flex; align-items: center; gap: 10px; margin-left: auto; }
-    .user-avatar { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--accent); }
-    .user-name { font-weight: 600; color: var(--text); }
-    .user-points { background: linear-gradient(135deg, #f59e0b, #fbbf24); color: #1e1b1b; padding: 2px 8px; border-radius: 9999px; font-weight: 700; font-size: 12px; }
-
-    /* Ranking table */
-    .ranking-container { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--card); border: 1px solid rgba(148,163,184,0.2); border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.5); z-index: 100; width: 90%; max-width: 700px; max-height: 80vh; overflow-y: auto; display: none; }
-    .ranking-header { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border-bottom: 1px solid rgba(148,163,184,0.2); }
-    .ranking-title { font-weight: 700; font-size: 18px; }
-    .ranking-close { background: none; border: none; color: var(--text); font-size: 20px; cursor: pointer; }
-    .ranking-search { padding: 12px 20px; border-bottom: 1px solid rgba(148,163,184,0.2); }
-    .ranking-search input { width: 100%; padding: 10px 14px; border-radius: 10px; background: #0b1220; border: 1px solid rgba(148,163,184,0.2); color: var(--text); }
-    .ranking-table { width: 100%; border-collapse: collapse; }
-    .ranking-table th, .ranking-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid rgba(148,163,184,0.1); }
-    .ranking-table th { background: rgba(30, 41, 59, 0.4); font-weight: 600; }
-    .ranking-table tr:hover { background: rgba(30, 41, 59, 0.2); }
-    .ranking-user-rank { font-weight: 700; color: var(--accent); text-align: center; padding: 16px; background: rgba(34,197,94,0.1); }
-    .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 99; display: none; }
 
     .hidden{ display:none !important }
     .mute{ color: var(--muted) }
@@ -173,32 +151,50 @@
     @media (max-width:640px){ 
         .q-head{ flex-direction:column; }
         .button-container { flex-direction: column; align-items: center; }
-        .header-inner { flex-wrap: wrap; }
-        .controls { order: 3; width: 100%; justify-content: center; margin-top: 10px; }
-        .user-profile { order: 2; margin-left: auto; }
-        .ranking-table th, .ranking-table td { padding: 8px 10px; font-size: 14px; }
+        header{
+          width: 100%;
+        }
     }
+    
   </style>
 </head>
 <body>
+    <div id="menu-container"></div>
+    <script>
+        fetch("menu.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("menu-container").innerHTML = data;
+                
+                // Now that the content is loaded, get the elements and add the event listener
+                const hamburger = document.querySelector('.hamburger');
+                const navMenu = document.querySelector('.nav-menu');
+                
+                if (hamburger && navMenu) {
+                    hamburger.addEventListener('click', () => {
+                        navMenu.classList.toggle('active');
+                        
+                        const icon = hamburger.querySelector('i');
+                        if (navMenu.classList.contains('active')) {
+                            icon.classList.remove('fa-bars');
+                            icon.classList.add('fa-times');
+                        } else {
+                            icon.classList.remove('fa-times');
+                            icon.classList.add('fa-bars');
+                        }
+                    });
+                }
+            });
+    </script>
   <header>
     <div class="header-inner container">
-      <div class="brand">📚 Vocabulary MCQ Exam</div>
+      <div class="brand">📝 Voculabalary MCQ Exam</div>
       <span class="pill">10 Questions • 10 Minutes • +1 / −0.25 / 0</span>
       <div id="timer" class="timer" aria-live="polite">10:00</div>
       <div class="controls">
         <button id="startBtn" class="primary">Start Exam</button>
         <button id="resetBtn" title="Start a new exam">New Exam</button>
-        <button id="rankingBtn">Ranking</button>
       </div>
-      <div id="userProfile" class="user-profile hidden">
-        <img id="userAvatar" class="user-avatar" src="" alt="User Avatar">
-        <div>
-          <div id="userName" class="user-name"></div>
-          <div id="userPoints" class="user-points">0 pts</div>
-        </div>
-      </div>
-      <div id="signInButton" class="g-signin2" data-theme="dark"></div>
     </div>
   </header>
 
@@ -206,12 +202,11 @@
     <section class="card intro" id="intro">
       <h2 style="margin:0 0 6px">Instructions</h2>
       <ul>
-        <li>10 questions will be drawn randomly from the full pool.</li>
-        <li>All questions are on <strong>Vocabulary (English to Bengali, Bengali to English, Synonyms, Antonyms)</strong>.</li>
+        <!--<li>10 questions will be drawn randomly from the full pool.</li>
+        <li>All questions are on <strong>Narration (Direct/Indirect Speech)</strong>.</li>-->
         <li>Scoring: Correct +1, Wrong −0.25, Unanswered 0.</li>
         <li>Time limit: 10 minutes. Auto-submit when time ends.</li>
         <li>All questions appear on one page — scroll to navigate.</li>
-        <li>Sign in with Google to save your progress and appear in rankings.</li>
       </ul>
     </section>
 
@@ -238,42 +233,13 @@
     </div>
   </main>
 
-  <!-- Ranking Modal -->
-  <div class="overlay" id="rankingOverlay"></div>
-  <div class="ranking-container" id="rankingContainer">
-    <div class="ranking-header">
-      <div class="ranking-title">Global Ranking</div>
-      <button class="ranking-close" id="closeRanking">&times;</button>
-    </div>
-    <div class="ranking-search">
-      <input type="text" id="searchRanking" placeholder="Search by name...">
-    </div>
-    <div id="userRank" class="ranking-user-rank hidden">Your Rank: #<span id="rankNumber"></span></div>
-    <div class="ranking-table-container">
-      <table class="ranking-table">
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Name</th>
-            <th>Score</th>
-            <th>Exams Taken</th>
-          </tr>
-        </thead>
-        <tbody id="rankingTableBody">
-          <!-- Ranking data will be inserted here -->
-        </tbody>
-      </table>
-    </div>
-  </div>
-
   <script>
   // ----------------------------
   // Utilities
   // ----------------------------
   const EXAM_SIZE = 10;
   const EXAM_MINUTES = 10; // minutes
-  const STORAGE_KEY = 'vocabulary_exam_state_v1';
-  const USERS_STORAGE_KEY = 'vocabulary_users_v1';
+  const STORAGE_KEY = 'narration_exam_state_v1';
 
   const qs = (sel, el=document) => el.querySelector(sel);
   const qsa = (sel, el=document) => [...el.querySelectorAll(sel)];
@@ -294,272 +260,267 @@
   function clearState(){ sessionStorage.removeItem(STORAGE_KEY); }
 
   // ----------------------------
-  // User Management
-  // ----------------------------
-  function saveUser(userData) {
-    const users = getUsers();
-    const existingUserIndex = users.findIndex(u => u.id === userData.id);
-    
-    if (existingUserIndex !== -1) {
-      // Update existing user
-      users[existingUserIndex] = userData;
-    } else {
-      // Add new user
-      users.push(userData);
-    }
-    
-    localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
-    return userData;
-  }
-
-  function getUsers() {
-    try {
-      return JSON.parse(localStorage.getItem(USERS_STORAGE_KEY) || '[]');
-    } catch {
-      return [];
-    }
-  }
-
-  function getUserById(id) {
-    const users = getUsers();
-    return users.find(u => u.id === id);
-  }
-
-  function updateUserScore(userId, score) {
-    const users = getUsers();
-    const userIndex = users.findIndex(u => u.id === userId);
-    
-    if (userIndex !== -1) {
-      users[userIndex].totalScore = (users[userIndex].totalScore || 0) + score;
-      users[userIndex].examsTaken = (users[userIndex].examsTaken || 0) + 1;
-      localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
-      return users[userIndex];
-    }
-    
-    return null;
-  }
-
-  function getRankings() {
-    const users = getUsers();
-    return users
-      .filter(user => user.totalScore !== undefined)
-      .sort((a, b) => b.totalScore - a.totalScore)
-      .map((user, index) => ({ ...user, rank: index + 1 }));
-  }
-
-  // ----------------------------
-  // Google Sign-in
-  // ----------------------------
-  function onGoogleSignIn(googleUser) {
-    const profile = googleUser.getBasicProfile();
-    const userData = {
-      id: profile.getId(),
-      name: profile.getName(),
-      avatar: profile.getImageUrl(),
-      email: profile.getEmail(),
-      totalScore: 0,
-      examsTaken: 0
-    };
-
-    // Check if user already exists and preserve their score
-    const existingUser = getUserById(userData.id);
-    if (existingUser) {
-      userData.totalScore = existingUser.totalScore || 0;
-      userData.examsTaken = existingUser.examsTaken || 0;
-    }
-
-    // Save user data
-    saveUser(userData);
-
-    // Update UI
-    qs('#userAvatar').src = userData.avatar;
-    qs('#userName').textContent = userData.name;
-    qs('#userPoints').textContent = `${userData.totalScore} pts`;
-    qs('#userProfile').classList.remove('hidden');
-    qs('#signInButton').classList.add('hidden');
-
-    // Store current user in session
-    sessionStorage.setItem('currentUser', JSON.stringify(userData));
-  }
-
-  function signOut() {
-    const auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(() => {
-      qs('#userProfile').classList.add('hidden');
-      qs('#signInButton').classList.remove('hidden');
-      sessionStorage.removeItem('currentUser');
-    });
-  }
-
-  // Check if user is already signed in
-  function checkSignedIn() {
-    const auth2 = gapi.auth2.getAuthInstance();
-    auth2.then(() => {
-      if (auth2.isSignedIn.get()) {
-        const googleUser = auth2.currentUser.get();
-        onGoogleSignIn(googleUser);
-      }
-    });
-  }
-
-  // ----------------------------
-  // Ranking System
-  // ----------------------------
-  function showRanking() {
-    const rankings = getRankings();
-    const currentUser = JSON.parse(sessionStorage.getItem('currentUser') || 'null');
-    const tableBody = qs('#rankingTableBody');
-    
-    // Clear previous data
-    tableBody.innerHTML = '';
-    
-    // Filter rankings based on search
-    const searchTerm = qs('#searchRanking').value.toLowerCase();
-    const filteredRankings = rankings.filter(user => 
-      user.name.toLowerCase().includes(searchTerm)
-    );
-    
-    // Populate table
-    filteredRankings.forEach((user, index) => {
-      const row = document.createElement('tr');
-      row.innerHTML = `
-        <td>${user.rank}</td>
-        <td><img src="${user.avatar}" style="width:24px;height:24px;border-radius:50%;margin-right:8px;vertical-align:middle">${user.name}</td>
-        <td>${user.totalScore}</td>
-        <td>${user.examsTaken || 0}</td>
-      `;
-      
-      // Highlight current user
-      if (currentUser && user.id === currentUser.id) {
-        row.style.background = 'rgba(34,197,94,0.1)';
-        qs('#userRank').classList.remove('hidden');
-        qs('#rankNumber').textContent = user.rank;
-      }
-      
-      tableBody.appendChild(row);
-    });
-    
-    // Show ranking modal
-    qs('#rankingContainer').style.display = 'block';
-    qs('#rankingOverlay').style.display = 'block';
-  }
-
-  function hideRanking() {
-    qs('#rankingContainer').style.display = 'none';
-    qs('#rankingOverlay').style.display = 'none';
-  }
-
-  // ----------------------------
-  // Question Pool (Vocabulary)
+  // Question Pool (Narration)
   // Each question: { id, q, options:[], answer: index, explain }
   // ----------------------------
-  const QUESTIONS = [
+
+
+
+
+
+
+
+
+
+const QUESTIONS = [
     {
       id: 1,
       q: "Choose the Bengali meaning of: 'ubiquitous'",
       options: ["বিরল", "সর্বত্র বিদ্যমান", "গোপন", "অকার্যকর"],
       answer: 1,
-      explain: "ব্যাখ্যা: 'Ubiquitous' শব্দের অর্থ হলো 'সর্বত্র বিদ্যমান'। উদাহরণস্বরূপ, আজকাল স্মার্টফোনগুলি সর্বত্র বিদ্যমান (ubiquitous)।"
+      explain: "ব্যাখ্যা: Correct Option-- (B) |'Ubiquitous' শব্দের অর্থ হলো 'সর্বত্র বিদ্যমান'। উদাহরণস্বরূপ, আজকাল স্মার্টফোনগুলি সর্বত্র বিদ্যমান (ubiquitous)।"
     },
     {
       id: 2,
       q: "Choose the English meaning of: 'পরিপক্ব'",
       options: ["Immature", "Mature", "Young", "New"],
       answer: 1,
-      explain: "ব্যাখ্যা: 'পরিপক্ব' শব্দের ইংরেজি অর্থ হলো 'Mature' যা পূর্ণবিকশিত বা পরিণত বোঝায়।"
+      explain: "ব্যাখ্যা: Correct Option-- (B) | 'পরিপক্ব' শব্দের ইংরেজি অর্থ হলো 'Mature' যা পূর্ণবিকশিত বা পরিণত বোঝায়।"
     },
     {
       id: 3,
       q: "Choose the synonym of: 'Benevolent'",
       options: ["Cruel", "Kind", "Stingy", "Selfish"],
       answer: 1,
-      explain: "ব্যাখ্যা: 'Benevolent' শব্দের প্রতিশব্দ হলো 'Kind' যা দয়ালু বা পরোপকারী বোঝায়।"
+      explain: "ব্যাখ্যা: Correct Option-- (B) | 'Benevolent' শব্দের প্রতিশব্দ হলো 'Kind' যা দয়ালু বা পরোপকারী বোঝায়।"
     },
     {
       id: 4,
       q: "Choose the antonym of: 'Courage'",
       options: ["Bravery", "Fear", "Confidence", "Daring"],
       answer: 1,
-      explain: "ব্যাখ্যা: 'Courage' শব্দের বিপরীত শব্দ হলো 'Fear' যা ভয় বা সাহসের অভাব বোঝায়।"
+      explain: "ব্যাখ্যা: Correct Option-- (B) |'Courage' শব্দের বিপরীত শব্দ হলো 'Fear' যা ভয় বা সাহসের অভাব বোঝায়।"
     },
     {
       id: 5,
-      q: "Choose the Bengali meaning of: 'Perseverance'",
-      options: ["হতাশা", "অধ্যবসায়", "আলস্য", "বিরক্তি"],
+      q: "Choose the Bengali meaning of: 'ambiguous'",
+      options: ["স্পষ্ট", "দ্ব্যর্থক", "সরল", "নির্দিষ্ট"],
       answer: 1,
-      explain: "ব্যাখ্যা: 'Perseverance' শব্দের বাংলা অর্থ হলো 'অধ্যবসায়' যা কোনো কাজে লাগাতার চেষ্টা চালিয়ে যাওয়া বোঝায়।"
+      explain: "ব্যাখ্যা: Correct Option-- (B) | 'Ambiguous' শব্দের অর্থ হলো 'দ্ব্যর্থক' বা অস্পষ্ট। উদাহরণস্বরূপ, তার উত্তরটি দ্ব্যর্থক (ambiguous) ছিল।"
     },
     {
       id: 6,
-      q: "Choose the English meaning of: 'সহানুভূতি'",
-      options: ["Apathy", "Sympathy", "Antipathy", "Empathy"],
-      answer: 3,
-      explain: "ব্যাখ্যা: 'সহানুভূতি' শব্দের সঠিক ইংরেজি প্রতিশব্দ হলো 'Empathy' যা অন্য মানুষের অনুভূতি বুঝতে পারা এবং সেগুলোতে সাড়া দেওয়া বোঝায়।"
+      q: "Choose the English meaning of: 'অনুমান'",
+      options: ["Fact", "Proof", "Assumption", "Evidence"],
+      answer: 2,
+      explain: "ব্যাখ্যা: Correct Option-- (C) | 'অনুমান' শব্দের ইংরেজি অর্থ হলো 'Assumption' যা ধারণা বা অনুমান বোঝায়।"
     },
     {
       id: 7,
-      q: "Choose the synonym of: 'Magnificent'",
-      options: ["Ordinary", "Splendid", "Simple", "Plain"],
+      q: "Choose the synonym of: 'Diligent'",
+      options: ["Lazy", "Hardworking", "Careless", "Slow"],
       answer: 1,
-      explain: "ব্যাখ্যা: 'Magnificent' শব্দের প্রতিশব্দ হলো 'Splendid' যা চমৎকার, মহান বা জাঁকজমকপূর্ণ বোঝায়।"
+      explain: "ব্যাখ্যা: Correct Option-- (B) | 'Diligent' শব্দের প্রতিশব্দ হলো 'Hardworking' যা পরিশ্রমী বা অধ্যবসায়ী বোঝায়।"
     },
     {
       id: 8,
       q: "Choose the antonym of: 'Generous'",
-      options: ["Charitable", "Stingy", "Kind", "Benevolent"],
-      answer: 1,
-      explain: "ব্যাখ্যা: 'Generous' শব্দের বিপরীত শব্দ হলো 'Stingy' যা কৃপণ বা অর্থ/সময়/সম্পদ দেওয়ার ক্ষেত্রে অনিচ্ছুক বোঝায়।"
+      options: ["Kind", "Charitable", "Stingy", "Helpful"],
+      answer: 2,
+      explain: "ব্যাখ্যা: Correct Option-- (C) | 'Generous' শব্দের বিপরীত শব্দ হলো 'Stingy' যা কৃপণ বা অর্থলোভী বোঝায়।"
     },
     {
       id: 9,
-      q: "Choose the Bengali meaning of: 'Ambiguous'",
-      options: ["স্পষ্ট", "অস্পষ্ট", "নিশ্চিত", "নির্দিষ্ট"],
-      answer: 1,
-      explain: "ব্যাখ্যা: 'Ambiguous' শব্দের বাংলা অর্থ হলো 'অস্পষ্ট' যা একাধিক অর্থ বহন করতে পারে এমন বা স্পষ্ট নয় এমন বোঝায়।"
+      q: "Choose the Bengali meaning of: 'persistent'",
+      options: ["স্থায়ী", "অস্থির", "দুর্বল", "বিরত"],
+      answer: 0,
+      explain: "ব্যাখ্যা: Correct Option-- (A) | 'Persistent' শব্দের অর্থ হলো 'স্থায়ী' বা অবিরাম। উদাহরণস্বরূপ, তিনি তার লক্ষ্যে স্থায়ী (persistent) ছিলেন।"
     },
     {
       id: 10,
-      q: "Choose the English meaning of: 'বিবেক'",
-      options: ["Conscience", "Conscious", "Knowledge", "Wisdom"],
-      answer: 0,
-      explain: "ব্যাখ্যা: 'বিবেক' শব্দের সঠিক ইংরেজি প্রতিশব্দ হলো 'Conscience' যা নৈতিক সঠিক ও ভুলের内在 অনুভূতি বোঝায়।"
+      q: "Choose the English meaning of: 'সহানুভূতি'",
+      options: ["Apology", "Sympathy", "Anger", "Happiness"],
+      answer: 1,
+      explain: "ব্যাখ্যা: Correct Option-- (B) | 'সহানুভূতি' শব্দের ইংরেজি অর্থ হলো 'Sympathy' যা অন্যের দুঃখে সমবেদনা বোঝায়।"
     },
     {
       id: 11,
-      q: "Choose the synonym of: 'Diligent'",
-      options: ["Lazy", "Hardworking", "Careless", "Negligent"],
+      q: "Choose the synonym of: 'Abundant'",
+      options: ["Scarce", "Plentiful", "Limited", "Rare"],
       answer: 1,
-      explain: "ব্যাখ্যা: 'Diligent' শব্দের প্রতিশব্দ হলো 'Hardworking' যা পরিশ্রমী বা কোন কাজে মনোযোগ সহকারে নিযুক্ত থাকা বোঝায়।"
+      explain: "ব্যাখ্যা: Correct Option-- (B) | 'Abundant' শব্দের প্রতিশব্দ হলো 'Plentiful' যা প্রচুর বা প্রাচুর্য বোঝায়।"
     },
     {
       id: 12,
-      q: "Choose the antonym of: 'Expand'",
-      options: ["Grow", "Contract", "Increase", "Extend"],
+      q: "Choose the antonym of: 'Modern'",
+      options: ["Current", "Ancient", "Contemporary", "Recent"],
       answer: 1,
-      explain: "ব্যাখ্যা: 'Expand' শব্দের বিপরীত শব্দ হলো 'Contract' যা সঙ্কুচিত হওয়া বা আয়তনে/আকারে ছোট হওয়া বোঝায়।"
+      explain: "ব্যাখ্যা: Correct Option-- (B) | 'Modern' শব্দের বিপরীত শব্দ হলো 'Ancient' যা প্রাচীন বা পুরানো বোঝায়।"
     },
     {
       id: 13,
-      q: "Choose the Bengali meaning of: 'Resilient'",
-      options: ["নমনীয়", "ভঙ্গুর", "স্থিতিস্থাপক", "দৃঢ়"],
+      q: "Choose the Bengali meaning of: 'efficient'",
+      options: ["অদক্ষ", "সক্ষম", "দক্ষ", "জটিল"],
       answer: 2,
-      explain: "ব্যাখ্যা: 'Resilient' শব্দের বাংলা অর্থ হলো 'স্থিতিস্থাপক' যা কঠিন পরিস্থিতি থেকে দ্রুত পুনরুদ্ধার করতে সক্ষম বোঝায়।"
+      explain: "ব্যাখ্যা: Correct Option-- (C) | 'Efficient' শব্দের অর্থ হলো 'দক্ষ' বা কার্যকর। উদাহরণস্বরূপ, তিনি একজন দক্ষ (efficient) কর্মী।"
     },
     {
       id: 14,
-      q: "Choose the English meaning of: 'সহিষ্ণুতা'",
-      options: ["Impatience", "Tolerance", "Intolerance", "Anger"],
+      q: "Choose the English meaning of: 'বিবেচনা'",
+      options: ["Ignorance", "Consideration", "Neglect", "Rejection"],
       answer: 1,
-      explain: "ব্যাখ্যা: 'সহিষ্ণুতা' শব্দের সঠিক ইংরেজি প্রতিশব্দ হলো 'Tolerance' যা অন্য মানুষের মতামত, আচরণ বা অভ্যাস মেনে নেওয়ার গুণ বোঝায়।"
+      explain: "ব্যাখ্যা: Correct Option-- (B) | 'বিবেচনা' শব্দের ইংরেজি অর্থ হলো 'Consideration' যা চিন্তা-ভাবনা বা মনোনিবেশ বোঝায়।"
     },
     {
       id: 15,
-      q: "Choose the synonym of: 'Eloquent'",
-      options: ["Articulate", "Inarticulate", "Mute", "Reserved"],
+      q: "Choose the correct spelling:",
+      options: ["Neccessary", "Necessary", "Necesary", "Necesarry"],
+      answer: 1,
+      explain: "ব্যাখ্যা: Correct Option-- (B) | The correct spelling is 'Necessary'. A useful mnemonic is: 'One Collar and two Sleeves' (one 'c' and two 's's)."
+    },
+    {
+      id: 16,
+      q: "Choose the Bengali meaning of: 'Reliable'",
+      options: ["অবিশ্বস্ত", "নির্ভরযোগ্য", "সন্দেহজনক", "অনিশ্চিত"],
+      answer: 1,
+      explain: "ব্যাখ্যা: Correct Option-- (B) | 'Reliable' শব্দের অর্থ হলো 'নির্ভরযোগ্য'। যে ব্যক্তি বা বস্তুর উপর ভরসা করা যায়।"
+    },
+    {
+      id: 17,
+      q: "Choose the antonym of: 'Expand'",
+      options: ["Increase", "Grow", "Contract", "Extend"],
+      answer: 2,
+      explain: "ব্যাখ্যা: Correct Option-- (C) | 'Expand' শব্দের বিপরীত শব্দ হলো 'Contract' যা সঙ্কুচিত হওয়া বা ছোট করা বোঝায়।"
+    },
+    {
+      id: 18,
+      q: "Choose the synonym of: 'Wealthy'",
+      options: ["Poor", "Affluent", "Bankrupt", "Needy"],
+      answer: 1,
+      explain: "ব্যাখ্যা: Correct Option-- (B) | 'Wealthy' শব্দের প্রতিশব্দ হলো 'Affluent' যা ধনী বা সমৃদ্ধিশালী বোঝায়।"
+    },
+    {
+      id: 19,
+      q: "Choose the English meaning of: 'ক্ষমা'",
+      options: ["Pardon", "Punishment", "Blame", "Criticism"],
       answer: 0,
-      explain: "ব্যাখ্যা: 'Eloquent' শব্দের প্রতিশব্দ হলো 'Articulate' যা ভাষা ব্যবহারে সাবলীল এবং কার্যকরভাবে ধারণা প্রকাশ করতে সক্ষম বোঝায়।"
-    }
-  ];
+      explain: "ব্যাখ্যা: Correct Option-- (A) | 'ক্ষমা' শব্দের ইংরেজি অর্থ হলো 'Pardon' বা 'Forgiveness', যা অন্যায় বা দোষ মাফ করা বোঝায়।"
+    },
+    {
+      id: 20,
+      q: "Identify the part of speech: 'He ran QUICKLY to the store.'",
+      options: ["Noun", "Verb", "Adjective", "Adverb"],
+      answer: 3,
+      explain: "ব্যাখ্যা: Correct Option-- (D) | The word 'quickly' modifies the verb 'ran', describing how he ran. Therefore, it is an Adverb."
+    },
+    {
+      id: 21,
+      q: "Choose the Bengali meaning of: 'Vulnerable'",
+      options: ["অরক্ষিত", "সুরক্ষিত", "শক্তিশালী", "অজেয়"],
+      answer: 0,
+      explain: "ব্যাখ্যা: Correct Option-- (A) | 'Vulnerable' শব্দের অর্থ হলো 'অরক্ষিত' বা 'সহজে আঘাতপ্রাপ্ত'। যে容易被伤害的。"
+    },
+    {
+      id: 22,
+      q: "Choose the antonym of: 'Simple'",
+      options: ["Easy", "Basic", "Complex", "Plain"],
+      answer: 2,
+      explain: "ব্যাখ্যা: Correct Option-- (C) | 'Simple' শব্দের বিপরীত শব্দ হলো 'Complex' যা জটিল বা সম্মিলিত বোঝায়।"
+    },
+    {
+      id: 23,
+      q: "Fill in the blank: 'She is allergic _____ cats.'",
+      options: ["with", "to", "for", "by"],
+      answer: 1,
+      explain: "ব্যাখ্যা: Correct Option-- (B) | The correct preposition to use with 'allergic' is 'to'. The standard structure is 'allergic to [something]'."
+    },
+    {
+      id: 24,
+      q: "Choose the synonym of: 'Brief'",
+      options: ["Long", "Short", "Detailed", "Extended"],
+      answer: 1,
+      explain: "ব্যাখ্যা: Correct Option-- (B) | 'Brief' শব্দের প্রতিশব্দ হলো 'Short' যা স্বল্পস্থায়ী বা সংক্ষিপ্ত বোঝায়।"
+    },
+    {
+      id: 25,
+      q: "Choose the word that best defines: 'A person who is unable to pay their debts'",
+      options: ["Millionaire", "Bankrupt", "Investor", "Heir"],
+      answer: 1,
+      explain: "ব্যাখ্যা: Correct Option-- (B) | A person who is declared in law unable to pay their debts is called 'Bankrupt'."
+    },
+    {
+      id: 26,
+      q: "Choose the Bengali meaning of: 'Nostalgia'",
+      options: ["ভবিষ্যতের চিন্তা", "অতীতের জন্য গভীর tęsknota", "বর্তমানের আনন্দ", "উদাসীনতা"],
+      answer: 1,
+      explain: "ব্যাখ্যা: Correct Option-- (B) | 'Nostalgia' means a sentimental longing or wistful affection for the past (অতীতের জন্য গভীর tęsknota)."
+    },
+    {
+      id: 27,
+      q: "Choose the antonym of: 'Victory'",
+      options: ["Triumph", "Success", "Defeat", "Achievement"],
+      answer: 2,
+      explain: "ব্যাখ্যা: Correct Option-- (C) | The direct opposite of 'Victory' (জয়) is 'Defeat' (পরাজয়)."
+    },
+    {
+      id: 28,
+      q: "Select the correctly punctuated sentence:",
+      options: ["The students books are on the table.", "The student's books are on the table.", "The students' books are on the table.", "The students's books are on the table."],
+      answer: 1,
+      explain: "ব্যাখ্যা: Correct Option-- (B) | The apostrophe before the 's' indicates singular possessive (one student owns the books). 'Students'' (Option C) is plural possessive."
+    },
+    {
+      id: 29,
+      q: "Choose the synonym of: 'Fragile'",
+      options: ["Strong", "Durable", "Delicate", "Tough"],
+      answer: 2,
+      explain: "ব্যাখ্যা: Correct Option-- (C) | 'Fragile' means easily broken or damaged. Its synonym is 'Delicate'."
+    },
+    {
+      id: 30,
+      q: "Choose the English meaning of: 'সতর্ক'",
+      options: ["Careless", "Cautious", "Reckless", "Hasty"],
+      answer: 1,
+      explain: "ব্যাখ্যা: Correct Option-- (B) | The Bengali word 'সতর্ক' translates to 'Cautious' in English, meaning careful to avoid potential problems or dangers."
+    },
+    {
+      id: 31,
+      q: "Identify the type of word: 'Wow! That was amazing!'",
+      options: ["Conjunction", "Interjection", "Preposition", "Adverb"],
+      answer: 1,
+      explain: "ব্যাখ্যা: Correct Option-- (B) | 'Wow' is an interjection. It is a word or phrase that expresses strong emotion or surprise."
+    },
+    {
+      id: 32,
+      q: "Choose the antonym of: 'Arrogant'",
+      options: ["Proud", "Humble", "Egotistical", "Boastful"],
+      answer: 1,
+      explain: "ব্যাখ্যা: Correct Option-- (B) | 'Arrogant' means having an exaggerated sense of one's own importance. Its opposite is 'Humble'."
+    },
+    {
+      id: 33,
+      q: "What is the past participle form of the verb 'go'?",
+      options: ["Goed", "Went", "Gone", "Goes"],
+      answer: 2,
+      explain: "ব্যাখ্যা: Correct Option-- (C) | The past participle of the irregular verb 'go' is 'gone' (e.g., I have gone to the store)."
+    },
+    {
+      id: 34,
+      q: "Choose the word that is spelled correctly:",
+      options: ["Acommodate", "Accommodate", "Acomodate", "Accomodate"],
+      answer: 1,
+      explain: "ব্যাখ্যা: Correct Option-- (B) | The correct spelling is 'Accommodate'. Remember: It's large enough to accommodate two 'c's and two 'm's."
+    },
+    
+];
+
+
+
+
+
+
+
+
 
   // ----------------------------
   // State
@@ -580,10 +541,6 @@
   const timerEl = qs('#timer');
   const summaryEl = qs('#summary');
   const introEl = qs('#intro');
-  const rankingBtn = qs('#rankingBtn');
-  const closeRankingBtn = qs('#closeRanking');
-  const searchRankingInput = qs('#searchRanking');
-  const rankingOverlay = qs('#rankingOverlay');
 
   // ----------------------------
   // Rendering
@@ -643,6 +600,7 @@
           <span class="chip unanswered-chip">⏳ ${unanswered} unanswered</span>
         </div>
         <button onclick="window.scrollTo({top:document.body.scrollHeight,behavior:'smooth'})"> Go to Bottom</button>
+
       </div>
     `;
   }
@@ -677,6 +635,7 @@
       } else {
         statusDiv.className = 'result-status unanswered-status';
         statusDiv.innerHTML = `<i class="fas fa-question-circle"></i> Unanswered`;
+        //statusDiv.style.color = 'var(--muted)';
       }
       
       // Add explanation text
@@ -729,16 +688,6 @@
 
     renderSummary(score, details);
     markReview(details);
-
-    // Update user score if signed in
-    const currentUser = JSON.parse(sessionStorage.getItem('currentUser') || 'null');
-    if (currentUser) {
-      const updatedUser = updateUserScore(currentUser.id, score);
-      if (updatedUser) {
-        qs('#userPoints').textContent = `${updatedUser.totalScore} pts`;
-        sessionStorage.setItem('currentUser', JSON.stringify(updatedUser));
-      }
-    }
 
     // lock state
     persist();
@@ -829,10 +778,6 @@
   });
   resetBtn.addEventListener('click', resetExam);
   submitBtn.addEventListener('click', (e)=>{ e.preventDefault(); submitExam('manual'); window.scrollTo({top:0,behavior:'smooth'}); });
-  rankingBtn.addEventListener('click', showRanking);
-  closeRankingBtn.addEventListener('click', hideRanking);
-  rankingOverlay.addEventListener('click', hideRanking);
-  searchRankingInput.addEventListener('input', showRanking);
 
   window.addEventListener('beforeunload', (e)=>{
     // gentle reminder if exam running
@@ -846,20 +791,7 @@
   (function init(){
     timerEl.textContent = formatTime(EXAM_MINUTES*60);
     restore();
-    
-    // Check if user is already signed in
-    if (typeof gapi !== 'undefined') {
-      gapi.load('auth2', function() {
-        gapi.auth2.init({
-          client_id: 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com'
-        }).then(checkSignedIn);
-      });
-    }
   })();
   </script>
 </body>
-<<<<<<< HEAD
 </html>
-=======
-</html>
->>>>>>> 830da78 (vocab_main.html added)
