@@ -189,8 +189,8 @@
   <header>
     <div class="header-inner container">
       <div class="brand">📝 Narration MCQ Exam</div>
-      <span class="pill">20 Questions • 20 Minutes • +1 / −0.25 / 0</span>
-      <div id="timer" class="timer" aria-live="polite">20:00</div>
+      <span class="pill">20 Questions • 10 Minutes • +1 / −0.25 / 0</span>
+      <div id="timer" class="timer" aria-live="polite">10:00</div>
       <div class="controls">
         <button id="startBtn" class="primary">Start Exam</button>
         <button id="resetBtn" title="Start a new exam">New Exam</button>
@@ -202,10 +202,10 @@
     <section class="card intro" id="intro">
       <h2 style="margin:0 0 6px">Instructions</h2>
       <ul>
-        <li>20 questions will be drawn randomly from the full pool.</li>
+        <li>10 questions will be drawn randomly from the full pool.</li>
         <li>All questions are on <strong>Narration (Direct/Indirect Speech)</strong>.</li>
         <li>Scoring: Correct +1, Wrong −0.25, Unanswered 0.</li>
-        <li>Time limit: 20 minutes. Auto-submit when time ends.</li>
+        <li>Time limit: 10 minutes. Auto-submit when time ends.</li>
         <li>All questions appear on one page — scroll to navigate.</li>
       </ul>
     </section>
@@ -237,8 +237,8 @@
   // ----------------------------
   // Utilities
   // ----------------------------
-  const EXAM_SIZE = 20;
-  const EXAM_MINUTES = 20; // minutes
+  const EXAM_SIZE = 10;
+  const EXAM_MINUTES = 10; // minutes
   const STORAGE_KEY = 'narration_exam_state_v1';
 
   const qs = (sel, el=document) => el.querySelector(sel);
