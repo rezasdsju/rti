@@ -512,6 +512,8 @@
     markReview(details);
     submitBtn.disabled = true;
     persist();
+    // Scroll to first question after submitting
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function resetExam(){
