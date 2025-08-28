@@ -465,9 +465,14 @@
     saveState({selectedIds, selectedMap, endTime, submitted});
   }
 
-  function startExam(){
+function startExam(){
     introEl.classList.add('hidden');
-    selectedIds = pick(QUESTIONS, EXAM_SIZE).map(q=>q.id);
+
+    // pick random questions and shuffle their order
+    selectedIds = pick(QUESTIONS, EXAM_SIZE)
+                    .sort(() => Math.random() - 0.5)  // shuffle
+                    .map(q => q.id);
+
     selectedMap = {};
     submitted = false;
     endTime = Date.now() + EXAM_MINUTES*60*1000;
@@ -475,7 +480,8 @@
     renderQuestions();
     submitBtn.disabled = false;
     startTimer();
-  }
+}
+
 
   function startTimer(){
     if(timerHandle) clearInterval(timerHandle);
