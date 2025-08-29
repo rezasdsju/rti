@@ -278,32 +278,54 @@
         // GPA এবং গ্রেড গণনা করার ফাংশন
         function getGradeAndGpa(mark, fullMark) {
             if (fullMark === 100) {
-                if (mark >= 80) return { grade: 'A+', gpa: 5.00 }; 
-                else if (mark >= 70) return { grade: 'A', gpa: 4.00 }; 
-                else if (mark >= 60) return { grade: 'A-', gpa: 3.50 }; 
-                else if (mark >= 50) return { grade: 'B', gpa: 3.00 }; 
-                else if (mark >= 40) return { grade: 'C', gpa: 2.00 }; 
-                else if (mark >= 33) return { grade: 'D', gpa: 1.00 };
+                if (mark >= 80) return { grade: 'A+', gpa: 4.00 }; 
+                else if (mark >= 75) return { grade: 'A', gpa: 3.75 }; 
+                else if (mark >= 70) return { grade: 'A-', gpa: 3.50 }; 
+                else if (mark >= 65) return { grade: 'B+', gpa: 3.25 }; 
+                else if (mark >= 60) return { grade: 'B', gpa: 3.00 }; 
+                else if (mark >= 55) return { grade: 'B-', gpa: 2.75 };
+                else if (mark >= 50) return { grade: 'C+', gpa: 2.50 };
+                else if (mark >= 45) return { grade: 'C', gpa: 2.25 };
+                else if (mark >= 40) return { grade: 'D', gpa: 2.00 };
                 else return { grade: 'F', gpa: 0.00 };
             } else if (fullMark === 50) {
-                if (mark >= 40) return { grade: 'A+', gpa: 5.00 }; 
-                else if (mark >= 35) return { grade: 'A', gpa: 4.00 }; 
-                else if (mark >= 30) return { grade: 'A-', gpa: 3.50 }; 
-                else if (mark >= 25) return { grade: 'B', gpa: 3.00 }; 
-                else if (mark >= 20) return { grade: 'C', gpa: 2.00 }; 
-                else if (mark >= 17) return { grade: 'D', gpa: 1.00 };
+                if (mark >= 40) return { grade: 'A+', gpa: 4.00 }; 
+                else if (mark >= 37.5) return { grade: 'A', gpa: 3.75 }; 
+                else if (mark >= 35) return { grade: 'A-', gpa: 3.50 }; 
+                else if (mark >= 32.5) return { grade: 'B+', gpa: 3.25 }; 
+                else if (mark >= 30) return { grade: 'B', gpa: 3.00 }; 
+                else if (mark >= 27.5) return { grade: 'B-', gpa: 2.75 };
+                else if (mark >= 25) return { grade: 'C+', gpa: 2.50 };
+                else if (mark >= 22.5) return { grade: 'C', gpa: 2.25 };
+                else if (mark >= 20) return { grade: 'D', gpa: 2.00 };
                 else return { grade: 'F', gpa: 0.00 };
             } else if (fullMark === 200) {
-                if (mark >= 160) return { grade: 'A+', gpa: 5.00 }; 
-                else if (mark >= 140) return { grade: 'A', gpa: 4.00 }; 
-                else if (mark >= 120) return { grade: 'A-', gpa: 3.50 }; 
-                else if (mark >= 100) return { grade: 'B', gpa: 3.00 }; 
-                else if (mark >= 80) return { grade: 'C', gpa: 2.00 }; 
-                else if (mark >= 66) return { grade: 'D', gpa: 1.00 };
+                if (mark >= 160) return { grade: 'A+', gpa: 4.00 }; 
+                else if (mark >= 150) return { grade: 'A', gpa: 3.75 }; 
+                else if (mark >= 140) return { grade: 'A-', gpa: 3.50 }; 
+                else if (mark >= 130) return { grade: 'B+', gpa: 3.25 }; 
+                else if (mark >= 120) return { grade: 'B', gpa: 3.00 }; 
+                else if (mark >= 110) return { grade: 'B-', gpa: 2.75 };
+                else if (mark >= 100) return { grade: 'C+', gpa: 2.50 }; 
+                else if (mark >= 90) return { grade: 'C', gpa: 2.25 }; 
+                else if (mark >= 80) return { grade: 'D', gpa: 2.00 };
                 else return { grade: 'F', gpa: 0.00 };
             } else {
                 return { grade: 'F', gpa: 0.00 };
             }
+        }
+
+        function overallGrade(overallGpa) {
+            if (overallGpa >= 4.00) return 'A+';
+            else if (overallGpa >= 3.75) return 'A';
+            else if (overallGpa >= 3.50) return 'A-';
+            else if (overallGpa >= 3.25) return 'B+';
+            else if (overallGpa >= 3.00) return 'B';
+            else if (overallGpa >= 2.75) return 'B-';
+            else if (overallGpa >= 2.50) return 'C+';
+            else if (overallGpa >= 2.25) return 'C';
+            else if (overallGpa >= 2.00) return 'D';
+            else return 'F';
         }
 
         // addSubject() ফাংশন
@@ -375,14 +397,21 @@
 
             let overallGPA;
             if (subjectCount > 0) {
-                overallGPA = hasFailed? '0.00' : (totalGpaPoints / creditCount).toFixed(2);
+                overallGPA =  (totalGpaPoints / creditCount).toFixed(2);
             } else {
                 overallGPA = '0.00';
             }
 
+            if (hasFailed) {
+                finalGrade = 'F';
+            } else {
+                finalGrade = overallGrade(overallGPA);
+            }            
+
             localStorage.setItem('studentName', studentName);
             localStorage.setItem('semester', semester);
             localStorage.setItem('overallGPA', overallGPA);
+            localStorage.setItem('finalGrade', finalGrade);
             localStorage.setItem('subjects', JSON.stringify(allSubjects));
     
             window.location.href = 'show_varsity_result.html';

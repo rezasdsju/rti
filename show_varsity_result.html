@@ -193,25 +193,49 @@
         .card-header h3 {
             margin: 0;
             font-size: 1.8rem;
+            text-align: center;
+            font-weight: 700;
+            color: #fff;
         }
         
         .card-body {
             padding: 30px;
         }
         
+        /* GPA & Grade Display */
         .gpa-display {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            gap: 40px;                 /* space between GPA and Grade */
+            align-items: center;
+            background: linear-gradient(90deg, #e0f7fa, #f1f8ff);
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 5px solid #43cbff;
             margin-bottom: 25px;
-            text-align: center;
-            border-left: 4px solid #43cbff;
+            flex-wrap: wrap;
         }
-        
+
         .gpa-display h4 {
-            color: #2c3e50;
             margin: 0;
-            font-size: 1.5rem;
+            font-size: 1.4rem;
+            font-weight: 700;
+            padding: 12px 20px;
+            border-radius: 8px;
+            background: #fff;
+            color: #2c3e50;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Specific highlight colors */
+        #overall-gpa {
+            border-left: 5px solid #43cbff;   /* blue highlight */
+            color: #1e3a8a;
+        }
+
+        #final-grade {
+            border-left: 5px solid #4CD964;   /* green highlight */
+            color: #166534;
         }
         
         /* Table Styles */
@@ -310,9 +334,13 @@
             flex-wrap: wrap;
         }
         
+        /* Back button container - MODIFIED */
         .back-button-container {
-            text-align: center;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
             margin: 30px 0;
+            flex-wrap: wrap;
         }
         
         /* Responsive styles */
@@ -394,6 +422,11 @@
             .btn {
                 width: 100%;
             }
+            
+            /* Stack back buttons on mobile */
+            .back-button-container {
+                flex-direction: column;
+            }
         }
         
         @media screen and (max-width: 480px) {
@@ -430,19 +463,6 @@
     <div class="main-container">
         <div class="page-header">
             <h1 class="page-title">Student Result</h1>
-            <!--<div class="btn-group">
-                <a href="#" class="btn btn-primary">
-                    <i class="fas fa-file-pdf"></i> Export all to PDF
-                </a>
-                <a href="#" class="btn btn-success">
-                    <i class="fas fa-file-csv"></i> Export all to CSV
-                </a>
-                <form action="#" method="get" class="d-inline">
-                    <button type="submit" class="btn btn-danger">
-                        <i class="fas fa-trash"></i> Clear All Data
-                    </button>
-                </form>
-            </div>-->
         </div>
         
         <div class="card">
@@ -452,6 +472,7 @@
             <div class="card-body">
                 <div class="gpa-display">
                     <h4 id="overall-gpa">Overall GPA: </h4>
+                    <h4 id="final-grade">Final Grade: </h4>
                 </div>
                 
                 <table class="result-table">
@@ -476,21 +497,15 @@
                             <i class="fas fa-download"></i> Export PDF
                         </a>
                     </div>
-                    <!--<div class="exp-csv">
-                        <a href="#" class="btn btn-success">
-                            <i class="fas fa-download"></i> Export CSV
-                        </a>
-                    </div>-->
                 </div>
             </div>
         </div>
         
+        <!-- Modified back buttons container -->
         <div class="back-button-container">
             <button type="button" class="btn btn-secondary" onclick="window.location.href='varsity_mark_input.html'">
                 <i class="fas fa-arrow-left"></i> Back to Form
             </button>
-        </div>
-        <div class="back-button-container">
             <button type="button" class="btn btn-secondary" onclick="window.location.href='index.html'">
                 <i class="fas fa-arrow-left"></i> Back to Home
             </button>
@@ -528,12 +543,14 @@
         let semester = "";
         let studentName = "";
         let overallGPA = "";
+        let finalGrade = "";
 
         document.addEventListener('DOMContentLoaded', function() {
             // লোকাল স্টোরেজ থেকে ডেটা লোড করা
             studentName = localStorage.getItem('studentName');
             semester = localStorage.getItem('semester');
             overallGPA = localStorage.getItem('overallGPA');
+            finalGrade = localStorage.getItem('finalGrade');
             subjects = JSON.parse(localStorage.getItem('subjects'));
 
             // যদি কোনো ডেটা না থাকে, তাহলে একটি মেসেজ দেখানো
@@ -563,6 +580,7 @@
             // HTML এলিমেন্টগুলোতে ডেটা দেখানো
             document.getElementById('student-name-header').textContent = studentName;
             document.getElementById('overall-gpa').textContent = `Overall GPA: ${overallGPA}`;
+            document.getElementById('final-grade').textContent = `Final Grade: ${finalGrade}`;
 
             const tableBody = document.getElementById('result-table-body');
             tableBody.innerHTML = '';
