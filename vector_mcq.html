@@ -494,6 +494,70 @@
       answer: 1,
       explain: "Answer --(B) <br> ব্যাখ্যা:<br>\\[ \\hat{j} \\cdot (\\hat{i}+\\hat{j}) = (0)(1) + (1)(1) + (0)(0) = 1 \\]<br>\\[ |\\hat{j}| = 1, \\quad |\\hat{i}+\\hat{j}| = \\sqrt{1^2 + 1^2} = \\sqrt{2} \\]<br>\\[ \\cos\\theta = \\frac{\\hat{j} \\cdot (\\hat{i}+\\hat{j})}{|\\hat{j}||\\hat{i}+\\hat{j}|} = \\frac{1}{1 \\times \\sqrt{2}} = \\frac{1}{\\sqrt{2}} \\]<br>\\[ \\theta = \\cos^{-1}\\left(\\frac{1}{\\sqrt{2}}\\right) = 45^\\circ \\]"
     },
+{
+  id: 3,
+  q: "<span>দুটি vector $\\overline{A}$ &nbsp ও $\\overline{B}$ &nbsp এর যোগফল তাদের পার্থক্যের উপর লম্ব। নিচের কোন বিবৃতিটি অবশ্যই সত্য?</span><span class='bcs-tag'>DU:23-24</span>",
+  options: ["$|\\overline{A}|$=$|\\overline{B}|$", "$\\overline{A}$.$\\overline{B}$=0", "$\\overline{A} \\times\\overline{B}$=0", "$\\overline{A}=-2\\overline{B}$"],
+  answer: 0,
+  explain: "Answer: (A) <br><b>ব্যাখ্যা:</b><br>ধরি দুটি ভেক্টর $\\vec{A}$ এবং $\\vec{B}$, এবং তাদের যোগফল $\\vec{A} + \\vec{B}$, পার্থক্য $\\vec{A} - \\vec{B}$ এর সাথে লম্ব। যদি দুটি ভেক্টর লম্ব হয়: $(\\vec{A} + \\vec{B}) \\cdot (\\vec{A} - \\vec{B}) = 0$, বিস্তার করলে পাই: $\\vec{A}\\cdot\\vec{A} - \\vec{A}\\cdot\\vec{B} + \\vec{B}\\cdot\\vec{A} - \\vec{B}\\cdot\\vec{B} = |\\vec{A}|^2 - |\\vec{B}|^2 = 0$, অতএব: $|\\vec{A}| = |\\vec{B}|$.<br><br>উদাহরণ হিসাবে: $\\vec{A} = 3\\hat{i} + 4\\hat{j}$ এবং $\\vec{B} = 4\\hat{i} + 3\\hat{j}$ নেওয়া যাক।<br>যোগফল: $\\vec{A} + \\vec{B} = 7\\hat{i} + 7\\hat{j}$<br>পার্থক্য: $\\vec{A} - \\vec{B} = -\\hat{i} + \\hat{j}$<br>ডট গুণফল: $(\\vec{A} + \\vec{B}) \\cdot (\\vec{A} - \\vec{B}) = (7)(-1) + (7)(1) = -7 + 7 = 0$<br>যেহেতু ডট গুণফল শূন্য, তাই যোগফল ও পার্থক্য পরস্পর লম্ব। উভয় ভেক্টরের ম্যাগনিচিউড: $|\\vec{A}| = \\sqrt{3^2+4^2} = 5$, $|\\vec{B}| = \\sqrt{4^2+3^2} = 5$"
+},
+{
+  id: 4,
+  q: "<span>$\\vec{P}$ ও $\\vec{Q}$ এর মধ্যবর্তী কোন $\\beta$ হলে $\\dfrac{\\vec{P} \\cdot \\vec{Q}}{|\\vec{P}\\times\\vec{Q}|}$=?</span><span class='bcs-tag'>RU:23-24</span>",
+  options: ["$\\tan\\beta$", "$\\sec\\beta$", "$\\cot\\beta$", "$\\sin\\beta$"],
+  answer: 2,
+  explain: "Answer: (C) $\\cot\\beta$ <br><b>ব্যাখ্যা:</b><br>দুটি ভেক্টরের জন্য:<br>ডট গুণফলের সংজ্ঞা: $\\vec{P} \\cdot \\vec{Q} = |\\vec{P}||\\vec{Q}|\\cos\\beta$<br>ক্রস গুণফলের মাত্রা: $|\\vec{P} \\times \\vec{Q}| = |\\vec{P}||\\vec{Q}|\\sin\\beta$<br><br>অতএব:<br>\\[ \\frac{\\vec{P} \\cdot \\vec{Q}}{|\\vec{P} \\times \\vec{Q}|} = \\frac{|\\vec{P}||\\vec{Q}|\\cos\\beta}{|\\vec{P}||\\vec{Q}|\\sin\\beta} = \\frac{\\cos\\beta}{\\sin\\beta} = \\cot\\beta \\]<br><br>উদাহরণ: $\\vec{P} = 3\\hat{i}$ এবং $\\vec{Q} = 4\\hat{j}$ হলে, মধ্যবর্তী কোণ $\\beta = 90^\\circ$<br>ডট গুণফল: $\\vec{P} \\cdot \\vec{Q} = (3)(0) + (0)(4) = 0$<br>ক্রস গুণফল: $|\\vec{P} \\times \\vec{Q}| = |3 \\times 4| = 12$ (যেহেতু তারা লম্ব)<br>অনুপাত: $\\frac{0}{12} = 0$ এবং $\\cot 90^\\circ = 0$, যা মিলে যায়।"
+},
+
+{
+  id: 5,
+  q: "<span>দুটি ভেক্টর রাশির ক্রস গুণন ও ডট গুণনের মান সমান হলে ভেক্টর দুটির মধ্যবর্তী কোণ কতো?</span><span class='bcs-tag'>JU:19-20</span>",
+  options: ["$0^\\circ$", "$60^\\circ$", "$45^\\circ$", "$90^\\circ$"],
+  answer: 2,
+  explain: "Answer: (C) $45^\\circ$ <br><b>ব্যাখ্যা:</b><br>দুটি ভেক্টর $\\vec{A}$ এবং $\\vec{B}$ এর জন্য:<br>ডট গুণফল: $\\vec{A} \\cdot \\vec{B} = |\\vec{A}||\\vec{B}|\\cos\\theta$<br>ক্রস গুণফলের মান: $|\\vec{A} \\times \\vec{B}| = |\\vec{A}||\\vec{B}|\\sin\\theta$<br><br>প্রশ্নানুসারে, ডট ও ক্রস গুণফলের মান সমান:<br>\\[ |\\vec{A}||\\vec{B}|\\cos\\theta = |\\vec{A}||\\vec{B}|\\sin\\theta \\]<br>\\[ \\cos\\theta = \\sin\\theta \\]<br>\\[ \\frac{\\sin\\theta}{\\cos\\theta} = 1 \\]<br>\\[ \\tan\\theta = 1 \\]<br>\\[ \\theta = 45^\\circ \\]<br><br>উদাহরণ: $\\vec{A} = 2\\hat{i}$ এবং $\\vec{B} = 2\\hat{i} + 2\\hat{j}$ নেওয়া যাক<br>মধ্যবর্তী কোণ: $\\theta = 45^\\circ$<br>ডট গুণফল: $\\vec{A} \\cdot \\vec{B} = (2)(2) + (0)(2) = 4$<br>ক্রস গুণফলের মান: $|\\vec{A} \\times \\vec{B}| = |(2)(2)\\sin 45^\\circ| = 4 \\times \\frac{\\sqrt{2}}{2} = 2\\sqrt{2} \\approx 2.828$<br>মান সমান নয়, কিন্তু $|\\vec{A}| = 2$, $|\\vec{B}| = 2\\sqrt{2} \\approx 2.828$ হলে:<br>ডট গুণফল: $|\\vec{A}||\\vec{B}|\\cos\\theta = 2 \\times 2.828 \\times 0.7071 \\approx 4$<br>ক্রস গুণফল: $|\\vec{A}||\\vec{B}|\\sin\\theta = 2 \\times 2.828 \\times 0.7071 \\approx 4$<br>সমান মান পাওয়া যায়।"
+},
+{
+  id: 6,
+  q: "<span>$\\vec{A}=\\hat{i}-3\\hat{j}+5\\hat{k}$ এবং $\\vec{B}=m\\hat{i}+6\\hat{j}-10\\hat{k}$। $m$ এর মান কতো হলে ভেক্টর দুটি পরস্পর সমান্তরাল হবে?</span><span class='bcs-tag'>JUST:18-19</span>",
+  options: ["$+2$", "$-2$", "$\\frac{-1}{2}$", "$\\frac{1}{2}$"],
+  answer: 1,
+  explain: "Answer: (B) $-2$ <br><b>ব্যাখ্যা:</b><br>দুটি ভেক্টর সমান্তরাল হবে যদি তাদের ক্রস গুণফল শূন্য ভেক্টর হয়। অর্থাৎ, $\\vec{A} \\times \\vec{B} = \\vec{0}$<br><br>দেওয়া আছে:<br>$\\vec{A} = \\hat{i} - 3\\hat{j} + 5\\hat{k}$<br>$\\vec{B} = m\\hat{i} + 6\\hat{j} - 10\\hat{k}$<br><br>ক্রস গুণফল নির্ণয়:<br>\\[ \\vec{A} \\times \\vec{B} = \\begin{vmatrix} \\hat{i} & \\hat{j} & \\hat{k} \\\\ 1 & -3 & 5 \\\\ m & 6 & -10 \\end{vmatrix} \\]<br><br>\\[ = \\hat{i}[(-3)(-10) - (5)(6)] - \\hat{j}[(1)(-10) - (5)(m)] + \\hat{k}[(1)(6) - (-3)(m)] \\]<br><br>\\[ = \\hat{i}[30 - 30] - \\hat{j}[-10 - 5m] + \\hat{k}[6 + 3m] \\]<br><br>\\[ = 0\\hat{i} + (10 + 5m)\\hat{j} + (6 + 3m)\\hat{k} \\]<br><br>ভেক্টরদ্বয় সমান্তরাল হওয়ার শর্ত অনুসারে, এই ক্রস গুণফল শূন্য ভেক্টর হতে হবে:<br>\\[ 10 + 5m = 0 \\quad \\text{এবং} \\quad 6 + 3m = 0 \\]<br><br>প্রথম সমীকরণ থেকে:<br>\\[ 10 + 5m = 0 \\]<br>\\[ 5m = -10 \\]<br>\\[ m = -2 \\]<br><br>দ্বিতীয় সমীকরণ থেকে:<br>\\[ 6 + 3m = 0 \\]<br>\\[ 3m = -6 \\]<br>\\[ m = -2 \\]<br><br>উভয় সমীকরণ থেকে আমরা পাই $m = -2$<br><br>যাচাইকরণ: $m = -2$ হলে,<br>$\\vec{B} = -2\\hat{i} + 6\\hat{j} - 10\\hat{k} = -2(\\hat{i} - 3\\hat{j} + 5\\hat{k}) = -2\\vec{A}$<br>সুতরাং ভেক্টরদ্বয় সমান্তরাল।"
+},
+{
+  id: 7,
+  q: "<span>দুটি সমমানের ভেক্টর একটি বিন্দুতে ক্রিয়াশীল। এদের লব্ধির মান যেকোন একটি ভেক্টরের মানের সমান। ভেক্টর দুটির মধ্যবর্তী কোণ কতো?</span><span class='bcs-tag'>DU:20-21</span>",
+  options: ["$0^\\circ$", "$90^\\circ$", "$120^\\circ$", "$180^\\circ$"],
+  answer: 2,
+  explain: "Answer: (C) $120^\\circ$ <br><b>ব্যাখ্যা:</b><br>ধরি, প্রতিটি ভেক্টরের মান $A$ এবং তাদের মধ্যবর্তী কোণ $\\theta$<br>লব্ধির মান: $R = \\sqrt{A^2 + A^2 + 2A^2\\cos\\theta} = \\sqrt{2A^2(1 + \\cos\\theta)}$<br><br>প্রশ্নানুসারে, লব্ধির মান একটি ভেক্টরের মানের সমান:<br>\\[ \\sqrt{2A^2(1 + \\cos\\theta)} = A \\]<br>\\[ 2A^2(1 + \\cos\\theta) = A^2 \\]<br>\\[ 2(1 + \\cos\\theta) = 1 \\]<br>\\[ 1 + \\cos\\theta = \\frac{1}{2} \\]<br>\\[ \\cos\\theta = -\\frac{1}{2} \\]<br>\\[ \\theta = 120^\\circ \\]<br><br>উদাহরণ: দুটি ভেক্টর $\\vec{A}$ এবং $\\vec{B}$ যাদের মান 5 একক এবং মধ্যবর্তী কোণ $120^\\circ$<br>লব্ধির মান: $R = \\sqrt{5^2 + 5^2 + 2 \\times 5 \\times 5 \\times \\cos 120^\\circ}$<br>\\[ = \\sqrt{25 + 25 + 50 \\times (-0.5)} = \\sqrt{50 - 25} = \\sqrt{25} = 5 \\]<br>যা একটি ভেক্টরের মানের সমান।"
+},
+{
+  id: 8,
+  q: "<span>একই সময়ে একই বিন্দুতে ক্রিয়ারত তিনটি সমতলীয় ভেক্টর রাশিকে কোন ত্রিভুজের তিনটি বাহুর দ্বারা একই ক্রমে নির্দেশ করলে এদের লব্ধি হবে--</span><span class='bcs-tag'>JU:21-22</span>",
+  options: ["কম", "বেশি", "অপরিবর্তিত", "শূন্য"],
+  answer: 3,
+  explain: "Answer: (D) শূন্য <br><b>ব্যাখ্যা:</b><br>যখন তিনটি ভেক্টরকে একটি ত্রিভুজের তিনটি বাহু দ্বারা একই ক্রমে নির্দেশ করা হয়, তখন ভেক্টরগুলির যোগফল শূন্য হবে। এটি ভেক্টর যোগের ত্রিভুজ সূত্র বা বহুভুজ সূত্র থেকে প্রমাণিত।<br><br>ত্রিভুজ সূত্র অনুযায়ী: যদি তিনটি ভেক্টর $\\vec{a}$, $\\vec{b}$ এবং $\\vec{c}$ একটি ত্রিভুজের তিনটি বাহু দ্বারা প্রতিনিধিত্ব করা হয়, তাহলে:<br>\\[ \\vec{a} + \\vec{b} + \\vec{c} = \\vec{0} \\]<br><br>কারণ ত্রিভুজের বাহুগুলি একে অপরকে বাতিল করে দেয় যখন আমরা একটি বদ্ধ লूप তৈরি করি।<br><br>উদাহরণ: একটি ত্রিভুজ ABC বিবেচনা করুন, যেখানে:<br>$\\vec{AB} = \\vec{a}$<br>$\\vec{BC} = \\vec{b}$<br>$\\vec{CA} = \\vec{c}$<br><br>ভেক্টর যোগফল: $\\vec{a} + \\vec{b} + \\vec{c} = \\vec{AB} + \\vec{BC} + \\vec{CA} = \\vec{AC} + \\vec{CA} = \\vec{0}$<br><br>সুতরাং, তিনটি ভেক্টরের লব্ধি শূন্য হবে যদি তারা একটি ত্রিভুজের তিনটি বাহু দ্বারা প্রতিনিধিত্ব করা হয়।"
+},
+
+{
+  id: 9,
+  q: "<span>ভেক্টর $\\vec{A}$, $\\vec{B}$ ও $\\vec{C}$ এর মান যথাক্রমে 12, 5, 13 এবং $\\vec{A} + \\vec{B} = \\vec{C}$। $\\vec{A}$ ও $\\vec{B}$ এর মধ্যবর্তী কোণ কতো?</span><span class='bcs-tag'>DU:17-18</span>",
+  options: ["$\\pi/2$", "$\\pi/3$", "$\\pi/4$", "$\\pi/6$"],
+  answer: 0,
+  explain: "Answer: (A) $\\pi/2$ <br><b>ব্যাখ্যা:</b><br>দেওয়া আছে: $|\\vec{A}| = 12$, $|\\vec{B}| = 5$, $|\\vec{C}| = 13$ এবং $\\vec{A} + \\vec{B} = \\vec{C}$<br><br>লব্ধি ভেক্টরের মানের সূত্র অনুসারে:<br>\\[ |\\vec{C}|^2 = |\\vec{A} + \\vec{B}|^2 = |\\vec{A}|^2 + |\\vec{B}|^2 + 2|\\vec{A}||\\vec{B}|\\cos\\theta \\]<br>যেখানে $\\theta$ হল $\\vec{A}$ এবং $\\vec{B}$ এর মধ্যবর্তী কোণ।<br><br>মানগুলি বসিয়ে:<br>\\[ 13^2 = 12^2 + 5^2 + 2 \\times 12 \\times 5 \\times \\cos\\theta \\]<br>\\[ 169 = 144 + 25 + 120\\cos\\theta \\]<br>\\[ 169 = 169 + 120\\cos\\theta \\]<br>\\[ 0 = 120\\cos\\theta \\]<br>\\[ \\cos\\theta = 0 \\]<br>\\[ \\theta = \\frac{\\pi}{2} \\text{ or } 90^\\circ \\]<br><br>যাচাইকরণ: 12, 5, 13 একটি পিথাগোরিয়ান ট্রিপল যেখানে $12^2 + 5^2 = 144 + 25 = 169 = 13^2$, যা দেখায় যে ভেক্টর $\\vec{A}$ এবং $\\vec{B}$ পরস্পর লম্ব।"
+},
+
+{
+  id: 10,
+  q: "<span>$\\vec{A}=\\hat{i}-4\\hat{j}+5\\hat{k}$ ও $\\vec{B}=6\\hat{i}-3\\hat{j}+2\\hat{k}$ হলে $\\vec{B}$ বরাবর $\\vec{A}$ এর অভিক্ষেপ বা অংশক কতো?</span><span class='bcs-tag'>SUST:04-05</span>",
+  options: ["$5$", "$6$", "$4$", "$8$"],
+  answer: 2,
+  explain: "Answer: (C) $4$ <br><b>ব্যাখ্যা:</b><br>ভেক্টর $\\vec{A}$ এর $\\vec{B}$ বরাবর স্কেলার অভিক্ষেপ বা অংশক নির্ণয় করতে আমরা নিম্নলিখিত সূত্র ব্যবহার করব:<br>\\[ \\text{scalar proj}_{\\vec{B}} \\vec{A} = \\frac{\\vec{A} \\cdot \\vec{B}}{|\\vec{B}|} \\]<br><br>প্রথমে $\\vec{A} \\cdot \\vec{B}$ নির্ণয় করি:<br>\\[ \\vec{A} \\cdot \\vec{B} = (1)(6) + (-4)(-3) + (5)(2) = 6 + 12 + 10 = 28 \\]<br><br>এখন $|\\vec{B}|$ নির্ণয় করি:<br>\\[ |\\vec{B}| = \\sqrt{(6)^2 + (-3)^2 + (2)^2} = \\sqrt{36 + 9 + 4} = \\sqrt{49} = 7 \\]<br><br>অতএব, $\\vec{B}$ বরাবর $\\vec{A}$ এর স্কেলার অভিক্ষেপ বা অংশক হবে:<br>\\[ \\text{scalar proj}_{\\vec{B}} \\vec{A} = \\frac{28}{7} = 4 \\]<br><br>সুতরাং, $\\vec{B}$ বরাবর $\\vec{A}$ এর অভিক্ষেপ বা অংশক হলো $4$।"
+},
+
+
+ 
+
+
     /*{
       id: 2,
       q: "<span>$\\overline{A} = 2\\hat{i} + 3\\hat{j} - \\hat{k}$ এবং $\\overline{B} = \\hat{i} - 2\\hat{j} + 2\\hat{k}$ হলে $\\overline{A} \\cdot \\overline{B} = ?$</span><span class='bcs-tag'>43th BCS</span>",
@@ -559,45 +623,64 @@
       options: ["$-1$", "$0$", "$1$", "$3$"],
       answer: 0,
       explain: "Answer --(A) <br> ব্যাখ্যা:<br>\\[ \\overline{A} \\cdot \\overline{B} = (3)(1) + (-2)(1) + (1)(-2) = 3 - 2 - 2 = -1 \\]"
-    },
-    {
-      id: 11,
-      q: "$\\overline{A} = 4\\hat{i} + 3\\hat{j}$ এবং $\\overline{B} = 2\\hat{i} - 6\\hat{j}$ হলে $\\overline{A} + \\overline{B} = ?$",
-      options: ["$6\\hat{i} - 3\\hat{j}$", "$6\\hat{i} + 9\\hat{j}$", "$2\\hat{i} + 9\\hat{j}$", "$2\\hat{i} - 3\\hat{j}$"],
-      answer: 0,
-      explain: "Answer --(A) <br> ব্যাখ্যা:<br>\\[ \\overline{A} + \\overline{B} = (4+2)\\hat{i} + (3-6)\\hat{j} = 6\\hat{i} - 3\\hat{j} \\]"
-    },
-    {
-      id: 12,
-      q: "$\\overline{A} = 2\\hat{i} - 3\\hat{j} + \\hat{k}$ এবং $\\overline{B} = -\\hat{i} + 2\\hat{j} + 3\\hat{k}$ হলে $\\overline{A} \\times \\overline{B} = ?$",
-      options: ["$-11\\hat{i} - 7\\hat{j} + \\hat{k}$", "$-11\\hat{i} + 7\\hat{j} + \\hat{k}$", "$11\\hat{i} - 7\\hat{j} + \\hat{k}$", "$11\\hat{i} + 7\\hat{j} - \\hat{k}$"],
-      answer: 0,
-      "explain": "Answer --(A)<br>ব্যাখ্যা:<br>\\[ \\begin{align*} \\overline{A} \\times \\overline{B} &= \\begin{vmatrix} \\hat{i} & \\hat{j} & \\hat{k} \\\\ 2 & -3 & 1 \\\\ -1 & 2 & 3 \\end{vmatrix} \\\\ &= (-9-2)\\hat{i} - (6+1)\\hat{j} + (4-3)\\hat{k} \\\\ &= -11\\hat{i} - 7\\hat{j} + \\hat{k} \\end{align*} \\]"
-
-    },
-    {
-      id: 13,
-      q: "$\\overline{A} = 5\\hat{i} - 12\\hat{j}$ হলে $|\\overline{A}|$ এর মান কত?",
-      options: ["$7$", "$13$", "$17$", "$25$"],
-      answer: 1,
-      explain: "Answer --(B) <br> ব্যাখ্যা:<br>\\[ |\\overline{A}| = \\sqrt{5^2 + (-12)^2} = \\sqrt{25 + 144} = \\sqrt{169} = 13 \\]"
-    },
-    {
-      id: 14,
-      q: "$\\overline{A} = 3\\hat{i} + 4\\hat{j} - 5\\hat{k}$ এবং $\\overline{B} = 2\\hat{i} - \\hat{j} + 3\\hat{k}$ হলে $\\overline{A} \\cdot \\overline{B} = ?$",
-      options: ["$-5$", "$5$", "$-19$", "$19$"],
-      answer: 2,
-      explain: "Answer --(C) <br> ব্যাখ্যা:<br>\\[ \\overline{A} \\cdot \\overline{B} = (3)(2) + (4)(-1) + (-5)(3) = 6 - 4 - 15 = -13 \\]"
-    },
-    {
-      id: 15,
-      q: "$\\overline{A} = 2\\hat{i} - \\hat{j} + 3\\hat{k}$ এবং $\\overline{B} = \\hat{i} + 2\\hat{j} - \\hat{k}$ হলে $3\\overline{A} - 2\\overline{B} = ?$",
-      options: ["$4\\hat{i} - 7\\hat{j} + 11\\hat{k}$", "$4\\hat{i} + 7\\hat{j} + 11\\hat{k}$", "$4\\hat{i} - 7\\hat{j} - 11\\hat{k}$", "$-4\\hat{i} - 7\\hat{j} + 11\\hat{k}$"],
-      answer: 0,
-      "explain": "Answer --(A)<br>ব্যাখ্যা:<br>\\[ \\begin{align*} 3\\overline{A} - 2\\overline{B} &= 3(2\\hat{i} - \\hat{j} + 3\\hat{k}) - 2(\\hat{i} + 2\\hat{j} - \\hat{k}) \\\\ &= (6-2)\\hat{i} + (-3-4)\\hat{j} + (9+2)\\hat{k} \\\\ &= 4\\hat{i} - 7\\hat{j} + 11\\hat{k} \\end{align*} \\]"
-
     },*/
-  ];
+{
+  id: 11,
+  q: "$\\vec{A} = 4\\hat{i} + 3\\hat{j}$ এবং $\\vec{B} = 2\\hat{i} - 6\\hat{j}$ হলে $\\vec{A} + \\vec{B} = ?$",
+  options: ["$6\\hat{i} - 3\\hat{j}$", "$6\\hat{i} + 9\\hat{j}$", "$2\\hat{i} + 9\\hat{j}$", "$2\\hat{i} - 3\\hat{j}$"],
+  answer: 0,
+  explain: "Answer: (A) $6\\hat{i} - 3\\hat{j}$ <br> ব্যাখ্যা:<br>\\[ \\vec{A} + \\vec{B} = (4+2)\\hat{i} + (3-6)\\hat{j} = 6\\hat{i} - 3\\hat{j} \\]"
+},
+{
+  id: 12,
+  q: "$\\vec{A} = 2\\hat{i} - 3\\hat{j} + \\hat{k}$ এবং $\\vec{B} = -\\hat{i} + 2\\hat{j} + 3\\hat{k}$ হলে $\\vec{A} \\times \\vec{B} = ?$",
+  options: ["$-11\\hat{i} - 7\\hat{j} + \\hat{k}$", "$-11\\hat{i} + 7\\hat{j} + \\hat{k}$", "$11\\hat{i} - 7\\hat{j} + \\hat{k}$", "$11\\hat{i} + 7\\hat{j} - \\hat{k}$"],
+  answer: 0,
+  "explain": "Answer: (A) $-11\\hat{i} - 7\\hat{j} + \\hat{k}$<br>ব্যাখ্যা:<br>\\[ \\begin{align*} \\vec{A} \\times \\vec{B} &= \\begin{vmatrix} \\hat{i} & \\hat{j} & \\hat{k} \\\\ 2 & -3 & 1 \\\\ -1 & 2 & 3 \\end{vmatrix} \\\\ &= \\hat{i}[(-3)(3) - (1)(2)] - \\hat{j}[(2)(3) - (1)(-1)] + \\hat{k}[(2)(2) - (-3)(-1)] \\\\ &= \\hat{i}[-9 - 2] - \\hat{j}[6 + 1] + \\hat{k}[4 - 3] \\\\ &= -11\\hat{i} - 7\\hat{j} + \\hat{k} \\end{align*} \\]"
+},
+{
+  id: 13,
+  q: "$\\vec{A} = 5\\hat{i} - 12\\hat{j}$ হলে $|\\vec{A}|$ এর মান কত?",
+  options: ["$7$", "$13$", "$17$", "$25$"],
+  answer: 1,
+  explain: "Answer: (B) $13$ <br> ব্যাখ্যা:<br>\\[ |\\vec{A}| = \\sqrt{(5)^2 + (-12)^2} = \\sqrt{25 + 144} = \\sqrt{169} = 13 \\]"
+},
+{
+  id: 14,
+  q: "$\\vec{A} = 3\\hat{i} + 4\\hat{j} - 5\\hat{k}$ এবং $\\vec{B} = 2\\hat{i} - \\hat{j} + 3\\hat{k}$ হলে $\\vec{A} \\cdot \\vec{B} = ?$",
+  options: ["$-5$", "$5$", "$-13$", "$13$"],
+  answer: 2,
+  explain: "Answer: (C) $-13$ <br> ব্যাখ্যা:<br>\\[ \\vec{A} \\cdot \\vec{B} = (3)(2) + (4)(-1) + (-5)(3) = 6 - 4 - 15 = -13 \\]"
+}, 
+{
+  id: 15,
+  q: "$\\vec{A} = 2\\hat{i} - \\hat{j} + 3\\hat{k}$ এবং $\\vec{B} = \\hat{i} + 2\\hat{j} - \\hat{k}$ হলে $3\\vec{A} - 2\\vec{B} = ?$",
+  options: ["$4\\hat{i} - 7\\hat{j} + 11\\hat{k}$", "$4\\hat{i} + 7\\hat{j} + 11\\hat{k}$", "$4\\hat{i} - 7\\hat{j} - 11\\hat{k}$", "$-4\\hat{i} - 7\\hat{j} + 11\\hat{k}$"],
+  answer: 0,
+  "explain": "Answer: (A) $4\\hat{i} - 7\\hat{j} + 11\\hat{k}$<br>ব্যাখ্যা:<br>\\[ \\begin{align*} 3\\vec{A} - 2\\vec{B} &= 3(2\\hat{i} - \\hat{j} + 3\\hat{k}) - 2(\\hat{i} + 2\\hat{j} - \\hat{k}) \\\\ &= (6\\hat{i} - 3\\hat{j} + 9\\hat{k}) - (2\\hat{i} + 4\\hat{j} - 2\\hat{k}) \\\\ &= (6-2)\\hat{i} + (-3-4)\\hat{j} + (9-(-2))\\hat{k} \\\\ &= 4\\hat{i} - 7\\hat{j} + 11\\hat{k} \\end{align*} \\]"
+},
+{
+  id: 16,
+  q: "<span>যদি $\\vec{P}=\\hat{i}-\\hat{j}+\\hat{k}$ এবং $\\vec{Q}=\\hat{i}+\\hat{j}+\\hat{k}$ একটি সামান্তরিকের দুটি সন্নিহিত বাহু নির্দেশ করে, তাহলে উপযুক্ত এককে সামান্তরিকের ক্ষেত্রফল নির্ণয় করো।</span><span class='bcs-tag'>DU:15-16</span>",
+  options: ["$2\\sqrt{2}$", "$2$", "$1$", "$\\sqrt{2}$"],
+  answer: 0,
+  explain: "Answer: (A) $2\\sqrt{2}$ <br><b>ব্যাখ্যা:</b><br>সামান্তরিকের ক্ষেত্রফল = $|\\vec{P} \\times \\vec{Q}|$<br><br>প্রথমে $\\vec{P} \\times \\vec{Q}$ নির্ণয় করি:<br>\\[ \\vec{P} \\times \\vec{Q} = \\begin{vmatrix} \\hat{i} & \\hat{j} & \\hat{k} \\\\ 1 & -1 & 1 \\\\ 1 & 1 & 1 \\end{vmatrix} \\]<br>\\[ = \\hat{i}[(-1)(1) - (1)(1)] - \\hat{j}[(1)(1) - (1)(1)] + \\hat{k}[(1)(1) - (-1)(1)] \\]<br>\\[ = \\hat{i}[-1 - 1] - \\hat{j}[1 - 1] + \\hat{k}[1 - (-1)] \\]<br>\\[ = -2\\hat{i} - 0\\hat{j} + 2\\hat{k} \\]<br>\\[ = -2\\hat{i} + 2\\hat{k} \\]<br><br>এখন $|\\vec{P} \\times \\vec{Q}|$ নির্ণয় করি:<br>\\[ |\\vec{P} \\times \\vec{Q}| = \\sqrt{(-2)^2 + 0^2 + 2^2} = \\sqrt{4 + 0 + 4} = \\sqrt{8} = 2\\sqrt{2} \\]<br><br>সুতরাং, সামান্তরিকের ক্ষেত্রফল = $2\\sqrt{2}$ বর্গ একক।"
+},
+{
+  id: 17,
+  q: "<span>যদি $\\vec{A}=2\\hat{i}+3\\hat{j}-5\\hat{k}$ এবং $\\vec{B}=m\\hat{i}+2\\hat{j}+10\\hat{k}$ । m এর মান কতো হলে ভেক্টর দুটি পরস্পর লম্ব হবে?</span><span class='bcs-tag'>DU:13-14</span>",
+  options: ["$12$", "$20$", "$22$", "$122$"],
+  answer: 1,
+  explain: "Answer: (B) $20$ <br><b>ব্যাখ্যা:</b><br>দুটি ভেক্টর পরস্পর লম্ব হবে যদি তাদের ডট গুণফল শূন্য হয়। অর্থাৎ, $\\vec{A} \\cdot \\vec{B} = 0$<br><br>ডট গুণফল নির্ণয় করি:<br>\\[ \\vec{A} \\cdot \\vec{B} = (2)(m) + (3)(2) + (-5)(10) \\]<br>\\[ = 2m + 6 - 50 \\]<br>\\[ = 2m - 44 \\]<br><br>ভেক্টরদ্বয় লম্ব হওয়ার শর্ত অনুসারে:<br>\\[ \\vec{A} \\cdot \\vec{B} = 0 \\]<br>\\[ 2m - 44 = 0 \\]<br>\\[ 2m = 44 \\]<br>\\[ m = 22 \\]<br><br>সুতরাং, m এর মান 22 হলে ভেক্টর দুটি পরস্পর লম্ব হবে।"
+},
+{
+  id: 18,
+  q: "<span>দুটি সমমানের ভেক্টর একটি বিন্দুতে ক্রিয়াশীল। এদের লব্ধির মান যেকোনো একটি ভেক্টরের মানের সমান। ভেক্টর দুটির মধ্যবর্তী কোণ কতো?</span><span class='bcs-tag'>DU:11-12</span>",
+  options: ["$180^\\circ$", "$120^\\circ$", "$90^\\circ$", "$0^\\circ$"],
+  answer: 1,
+  explain: "Answer: (B) $120^\\circ$ <br><b>ব্যাখ্যা:</b><br>ধরি, প্রতিটি ভেক্টরের মান $A$ এবং তাদের মধ্যবর্তী কোণ $\\theta$<br>লব্ধির মান: $R = \\sqrt{A^2 + A^2 + 2A^2\\cos\\theta} = \\sqrt{2A^2(1 + \\cos\\theta)}$<br><br>প্রশ্নানুসারে, লব্ধির মান একটি ভেক্টরের মানের সমান:<br>\\[ \\sqrt{2A^2(1 + \\cos\\theta)} = A \\]<br>\\[ 2A^2(1 + \\cos\\theta) = A^2 \\]<br>\\[ 2(1 + \\cos\\theta) = 1 \\]<br>\\[ 1 + \\cos\\theta = \\frac{1}{2} \\]<br>\\[ \\cos\\theta = -\\frac{1}{2} \\]<br>\\[ \\theta = 120^\\circ \\]<br><br>উদাহরণ: দুটি ভেক্টর $\\vec{A}$ এবং $\\vec{B}$ যাদের মান 5 একক এবং মধ্যবর্তী কোণ $120^\\circ$<br>লব্ধির মান: $R = \\sqrt{5^2 + 5^2 + 2 \\times 5 \\times 5 \\times \\cos 120^\\circ}$<br>\\[ = \\sqrt{25 + 25 + 50 \\times (-0.5)} = \\sqrt{50 - 25} = \\sqrt{25} = 5 \\]<br>যা একটি ভেক্টরের মানের সমান।"
+},
+  ]; 
 
   // ----------------------------
   // State
