@@ -63,45 +63,37 @@
     .q-head{ display:flex; gap:10px; align-items:flex-start; }
     .q-num{ width:34px; height:34px; border-radius:50%; display:grid; place-content:center; background:#0b1a2f; color:#bfdbfe; font-weight:700; border:1px solid rgba(96,165,250,0.35) }
     
-    /*.q-text{ font-weight:600; line-height:1.4 }*/
     .q-text{
-  font-weight:600;
-  line-height:1.4;
-  display: flex;
-  justify-content: space-between;
-  align-items: center; /* Optionally, to keep them vertically aligned */
-  flex-wrap: wrap; /* To handle responsiveness on smaller screens */
-  width: 100%; /* Ensure it takes full width */
-}
-
-     /* This class ensures the span is not wrapped to a new line */
-.nowrap {
-  white-space: nowrap;
-}
-
-    
-
-
-     /* আপনার বিদ্যমান CSS কোডের পরে এই অংশটি যোগ করুন */
-.bcs-tag {
-  padding: 4px 8px; /* বক্সের ভেতরের প্যাডিং */
-  background: #1e293b; /* বক্সের ব্যাকগ্রাউন্ড রঙ (আপনার থিমের সাথে সামঞ্জস্যপূর্ণ) */
-  border: 1px solid rgba(148, 163, 184, 0.25); /* বর্ডার */
-  border-radius: 8px; /* কোণাগুলোকে গোল করার জন্য */
-  font-size: 13px; /* ফন্টের আকার */
-  color: #cbd5e1; /* লেখার রঙ */
-  white-space: nowrap; /* নিশ্চিত করে যে লেখাটি এক লাইনে থাকবে */
-  margin-left: 10px; /* 'by and large' লেখা থেকে কিছুটা দূরত্ব রাখার জন্য */
-}
-
-/* যদি আপনি .q-text এর flex-wrap: wrap ব্যবহার করেন এবং ছোট স্ক্রিনে এটি নিচে নেমে আসে,
-   তাহলে সেটিকে মার্জিন টপ দিয়ে একটু নিচে নামিয়ে আনতে পারেন, যদি প্রয়োজন হয়। */
-@media (max-width: 640px) {
-    .q-text .bcs-tag {
-        margin-top: 5px; /* ছোট স্ক্রিনে প্রয়োজন হলে কিছুটা নিচে নামান */
-        margin-left: 0; /* ছোট স্ক্রিনে বামে মার্জিন সরান */
+      font-weight:600;
+      line-height:1.4;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      width: 100%;
     }
-}
+
+    .nowrap {
+      white-space: nowrap;
+    }
+
+    .bcs-tag {
+      padding: 4px 8px;
+      background: #1e293b;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 8px;
+      font-size: 13px;
+      color: #cbd5e1;
+      white-space: nowrap;
+      margin-left: 10px;
+    }
+
+    @media (max-width: 640px) {
+        .q-text .bcs-tag {
+            margin-top: 5px;
+            margin-left: 0;
+        }
+    }
 
     .options{ margin-top:12px; display:grid; gap:10px; }
 
@@ -170,9 +162,6 @@
 
     .button-container { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
     
-
-
-
 
     @media (max-width:640px){
         .q-head{ flex-direction:column; }
@@ -264,9 +253,13 @@
   const qs = (sel, el=document) => el.querySelector(sel);
   const qsa = (sel, el=document) => [...el.querySelectorAll(sel)];
   const pick = (arr, n) => {
-    const a = [...arr];
-    for (let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
-    return a.slice(0, n);
+    // Fisher-Yates shuffle algorithm for proper randomization
+    const shuffled = [...arr];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled.slice(0, n);
   };
   function formatTime(s){ const m = Math.floor(s/60).toString().padStart(2,'0'); const r = Math.floor(s%60).toString().padStart(2,'0'); return `${m}:${r}`; }
   function saveState(state){ sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
@@ -347,7 +340,20 @@ const QUESTIONS = [
     answer: 2,
     explain: "Answer--(C) <br> ব্যাখ্যা: 'fish' শব্দটি একবচন এবং বহুবচন উভয় ক্ষেত্রেই ব্যবহৃত হয়। উদাহরণস্বরূপ, 'I caught a fish' (একবচন) এবং 'I caught three fish' (বহুবচন)। অন্যদিকে, 'wood', 'issue', এবং 'light' শব্দগুলি সাধারণত একবচন বা বহুবচন হিসাবে ব্যবহৃত হয় না।"
   },
-
+  {
+    id:11,
+    q: "<span>Identify the determiner in the following sentence 'I have no news for you'</span><span class='bcs-tag'>40th BCS</span>",
+    options: ["have", "news", "no","for"],
+    answer: 2,
+    explain: "Answer--(C) <br> ব্যাখ্যা: <br> যেসকল শব্দ Noun এর পূর্বে বসে Noun এর নির্দিষ্টতা, অনির্দিষ্টতা, পরিমাণ, সংখ্যা ইত্যাদি নির্দেশ করে, তাকে determiner বলে। 'No' হল determiner যা এখানে 'news' এর পরিমাণ নির্দেশ করছে। <br> অন্য দিকে, 'have' একটি verb, 'news' একটি noun, এবং 'for' একটি preposition। সুতরাং সঠিক উত্তর হল 'no'।"
+  },
+  {
+    id:12,
+    q: "<span>He does not adhere __ any principle</span><span class='bcs-tag'>45th BCS</span>",
+    options: ["by", "in", "at","to"],
+    answer: 3,
+    explain: "Answer--(D) <br> ব্যাখ্যা: 'adhere to' একটি phrase যার অর্থ 'কোনো কিছু মেনে চলা' বা 'অনুসরণ করা'। তাই সঠিক উত্তর হল 'to'। <br> অন্য দিকে, 'by', 'in', এবং 'at' এই context এ সঠিক preposition নয়।"
+  },
 ];
 
   // ----------------------------
@@ -469,22 +475,54 @@ const QUESTIONS = [
     saveState({selectedIds, selectedMap, endTime, submitted});
   }
 
+
+
+
+
+
+
+
+
+         
+
 function startExam(){
+    // Page refresh দিয়ে নতুন exam শুরু
+    location.reload();
+
+    // নিচের কোডের কারণে, reload হওয়ার পরে নতুন state load হবে
+    // তাই নিচের অংশ optional, শুধু persist ও renderQuestions() reload-এর পর চলবে
+    
     introEl.classList.add('hidden');
 
-    // pick random questions and shuffle their order
-    selectedIds = pick(QUESTIONS, EXAM_SIZE)
-                    .sort(() => Math.random() - 0.5)  // shuffle
-                    .map(q => q.id);
+    const shuffled = [...QUESTIONS];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
 
+    selectedIds = shuffled.slice(0, EXAM_SIZE).map(q => q.id);
     selectedMap = {};
     submitted = false;
-    endTime = Date.now() + EXAM_MINUTES*60*1000;
+    endTime = Date.now() + EXAM_MINUTES * 60 * 1000;
+
     persist();
     renderQuestions();
     submitBtn.disabled = false;
     startTimer();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
 }
+
+
+
+
+
+
+
+
+
+
+
 
 
   function startTimer(){
@@ -522,7 +560,8 @@ function startExam(){
     markReview(details);
     submitBtn.disabled = true;
     persist();
-    // Scroll to first question after submitting
+    
+    // Scroll to top after submitting
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 

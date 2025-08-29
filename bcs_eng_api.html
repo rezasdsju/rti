@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vector MCQ Exam|RTI</title>
+  <title>BCS English|RTI</title>
   <script>
     // Configure MathJax before loading the script
     MathJax = {
@@ -62,7 +62,38 @@
     .question{ padding: 20px; border-top: 1px solid rgba(148,163,184,0.12); }
     .q-head{ display:flex; gap:10px; align-items:flex-start; }
     .q-num{ width:34px; height:34px; border-radius:50%; display:grid; place-content:center; background:#0b1a2f; color:#bfdbfe; font-weight:700; border:1px solid rgba(96,165,250,0.35) }
-    .q-text{ font-weight:600; line-height:1.4 }
+    
+    .q-text{
+      font-weight:600;
+      line-height:1.4;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .nowrap {
+      white-space: nowrap;
+    }
+
+    .bcs-tag {
+      padding: 4px 8px;
+      background: #1e293b;
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      border-radius: 8px;
+      font-size: 13px;
+      color: #cbd5e1;
+      white-space: nowrap;
+      margin-left: 10px;
+    }
+
+    @media (max-width: 640px) {
+        .q-text .bcs-tag {
+            margin-top: 5px;
+            margin-left: 0;
+        }
+    }
 
     .options{ margin-top:12px; display:grid; gap:10px; }
 
@@ -130,6 +161,106 @@
     }
 
     .button-container { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
+    
+    /* Feedback Section Styles */
+    .feedback-section {
+      margin: 40px 0;
+      padding: 20px;
+      background: #0b1220;
+      border: 1px solid rgba(148,163,184,0.15);
+      border-radius: 16px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.35);
+    }
+    
+    .feedback-section h2 {
+      margin-top: 0;
+      color: var(--text);
+      border-bottom: 1px solid rgba(148,163,184,0.2);
+      padding-bottom: 10px;
+      text-align: center;
+    }
+    .feedback-inner {
+       max-width: 600px;   /* sub-container width */
+       width: 80%;         /* responsive */
+       margin: 0 auto;     /* horizontally center */
+    }
+    @media (max-width:640px){
+       .feedback-inner { width: 95%; }
+    }
+
+    .feedback-form {
+      display: grid;
+      gap: 15px;
+    }
+    
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+    
+    .form-group label {
+      font-weight: 600;
+      color: var(--muted);
+    }
+    
+    .form-control {
+      padding: 12px 15px;
+      background: #091225;
+      border: 1px solid rgba(148,163,184,0.2);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 16px;
+    }
+    
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--ring);
+    }
+    
+    textarea.form-control {
+      min-height: 120px;
+      resize: vertical;
+    }
+    
+    .submit-feedback {
+      background: linear-gradient(180deg, var(--accent), var(--accent-weak));
+      color: #052e16;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .submit-feedback:hover {
+      filter: brightness(0.98);
+      transform: translateY(-2px);
+    }
+    
+    .form-status {
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+      display: none;
+    }
+    
+    .form-status.success {
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: var(--accent);
+      display: block;
+    }
+    
+    .form-status.error {
+      background: rgba(239, 68, 68, 0.1);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: var(--danger);
+      display: block;
+    }
 
     @media (max-width:640px){
         .q-head{ flex-direction:column; }
@@ -168,7 +299,7 @@
     </script>
   <header>
     <div class="header-inner container">
-      <div class="brand">📝 Vector MCQ Exam</div>
+      <div class="brand">📝 BSC MCQ Prep</div>
       <span class="pill">10 Questions • 10 Minutes • +1 / −0.25 / 0</span>
       <div id="timer" class="timer" aria-live="polite">10:00</div>
       <div class="controls">
@@ -201,6 +332,34 @@
       <button id="submitBtn" class="primary" disabled>Submit Exam</button>
     </div>
 
+    <!-- Feedback Section -->
+    <section class="feedback-section">
+      
+      <h2>Send Us Your Feedback</h2>
+      <div class='feedback-inner'>
+      <form id="feedbackForm" class="feedback-form" action="https://formspree.io/f/xwpnvyaw" method="POST">
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" name="name" class="form-control" placeholder="Enter your name">
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Your Email(Optional)</label>
+          <input type="email" id="email" name="email" class="form-control" placeholder="Enter your email">
+        </div>
+        
+        <div class="form-group">
+          <label for="message">Your Feedback</label>
+          <textarea id="message" name="message" class="form-control" placeholder="Please share your thoughts, suggestions, or report any issues..." required></textarea>
+        </div>
+        
+        <button type="submit" class="submit-feedback">Send Feedback</button>
+        
+        <div id="formStatus" class="form-status"></div>
+      </form>
+      </div>
+    </section>
+
     <div class="button-container">
         <a href='index.html' class='back-button'>
             <i class="fas fa-arrow-left"></i> Back to Home
@@ -221,9 +380,13 @@
   const qs = (sel, el=document) => el.querySelector(sel);
   const qsa = (sel, el=document) => [...el.querySelectorAll(sel)];
   const pick = (arr, n) => {
-    const a = [...arr];
-    for (let i=a.length-1;i>0;i--){ const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
-    return a.slice(0, n);
+    // Fisher-Yates shuffle algorithm for proper randomization
+    const shuffled = [...arr];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled.slice(0, n);
   };
   function formatTime(s){ const m = Math.floor(s/60).toString().padStart(2,'0'); const r = Math.floor(s%60).toString().padStart(2,'0'); return `${m}:${r}`; }
   function saveState(state){ sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
@@ -233,118 +396,92 @@
   // ----------------------------
   // Question Pool
   // ----------------------------
-  const QUESTIONS = [
-    {
-      id: 1,
-      q: "$|\\overline{A}|=|\\overline{B}|=3$ এবং $\\overline{A}$ ও $\\overline{B}$ এর মধ্যবর্তী কোণ $\\theta$ হলে $|\\overline{A} \\times \\overline{B}|=?$",
-      options: ["$9\\cos\\theta$", "$9\\sin\\theta$", "$\\frac{1}{9}\\sin\\theta$", "$\\frac{1}{9}\\cos\\theta$"],
-      answer: 1,
-      explain: "Answer --(B) <br> ব্যাখ্যা:<br>\\[ |\\overline{A} \\times \\overline{B}| = |A||B|\\sin\\theta = 3 \\times 3 \\sin\\theta = 9\\sin\\theta \\]"
-    },
-    {
-      id: 2,
-      q: "$\\overline{A} = 2\\hat{i} + 3\\hat{j} - \\hat{k}$ এবং $\\overline{B} = \\hat{i} - 2\\hat{j} + 2\\hat{k}$ হলে $\\overline{A} \\cdot \\overline{B} = ?$",
-      options: ["$-6$", "$0$", "$2$", "$4$"],
-      answer: 0,
-      explain: "Answer --(A) <br> ব্যাখ্যা:<br>\\[ \\overline{A} \\cdot \\overline{B} = (2)(1) + (3)(-2) + (-1)(2) = 2 - 6 - 2 = -6 \\]"
-    },
-    {
-      id: 3,
-      q: "$\\overline{A} = 3\\hat{i} + 4\\hat{j}$ হলে $|\\overline{A}|$ এর মান কত?",
-      options: ["$5$", "$7$", "$12$", "$25$"],
-      answer: 0,
-      explain: "Answer--(A) <br> ব্যাখ্যা:<br>\\[ |\\overline{A}| = \\sqrt{3^2 + 4^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5 \\]"
-    },
-    {
-      id: 4,
-      q: "$\\overline{A} = 2\\hat{i} - \\hat{j} + 3\\hat{k}$ এবং $\\overline{B} = \\hat{i} + 2\\hat{j} - \\hat{k}$ হলে $\\overline{A} + \\overline{B} = ?$",
-      options: ["$3\\hat{i} + \\hat{j} + 2\\hat{k}$", "$3\\hat{i} + \\hat{j} - 2\\hat{k}$", "$3\\hat{i} - \\hat{j} + 2\\hat{k}$", "$\\hat{i} + 3\\hat{j} + 2\\hat{k}$"],
-      answer: 0,
-      explain: "Answer --(A) <br> ব্যাখ্যা:<br>\\[ \\overline{A} + \\overline{B} = (2+1)\\hat{i} + (-1+2)\\hat{j} + (3-1)\\hat{k} = 3\\hat{i} + \\hat{j} + 2\\hat{k} \\]"
-    },
-    {
-      id: 5,
-      q: "$\\overline{A} = 4\\hat{i} - 3\\hat{j}$ এবং $\\overline{B} = 2\\hat{i} + 5\\hat{j}$ হলে $2\\overline{A} - \\overline{B} = ?$",
-      options: ["$6\\hat{i} - 11\\hat{j}$", "$10\\hat{i} - 11\\hat{j}$", "$6\\hat{i} + 11\\hat{j}$", "$10\\hat{i} + 11\\hat{j}$"],
-      answer: 0,
-      "explain": "Answer --(A)<br>ব্যাখ্যা:<br>\\[ \\begin{align*} 2\\overline{A} - \\overline{B} &= 2(4\\hat{i} - 3\\hat{j}) - (2\\hat{i} + 5\\hat{j}) \\\\ &= (8-2)\\hat{i} + (-6-5)\\hat{j} \\\\ &= 6\\hat{i} - 11\\hat{j} \\end{align*} \\]"
-
-    },
-    {
-      id: 6,
-      q: "$\\overline{A} = 2\\hat{i} + 3\\hat{j} - \\hat{k}$ এবং $\\overline{B} = \\hat{i} - \\hat{j} + 2\\hat{k}$ হলে $\\overline{A} \\times \\overline{B} = ?$",
-      options: ["$5\\hat{i} - 5\\hat{j} - 5\\hat{k}$", "$5\\hat{i} + 5\\hat{j} - 5\\hat{k}$", "$5\\hat{i} - 5\\hat{j} + 5\\hat{k}$", "$-5\\hat{i} - 5\\hat{j} - 5\\hat{k}$"],
-      answer: 0,
-      "explain": "Answer --(A)<br>ব্যাখ্যা:<br>\\[ \\begin{align*} \\overline{A} \\times \\overline{B} &= \\begin{vmatrix} \\hat{i} & \\hat{j} & \\hat{k} \\\\ 2 & 3 & -1 \\\\ 1 & -1 & 2 \\end{vmatrix} \\\\ &= (6-1)\\hat{i} - (4+1)\\hat{j} + (-2-3)\\hat{k} \\\\ &= 5\\hat{i} - 5\\hat{j} - 5\\hat{k} \\end{align*} \\]"
-
-    },
-    {
-      id: 7,
-      q: "$\\overline{A} = 3\\hat{i} + 4\\hat{j}$ এবং $\\overline{B} = 5\\hat{i} - 12\\hat{j}$ হলে $\\overline{A} \\cdot \\overline{B} = ?$",
-      options: ["$-33$", "$-15$", "$15$", "$33$"],
-      answer: 0,
-      explain: "Answer --(A) <br> ব্যাখ্যা:<br>\\[ \\overline{A} \\cdot \\overline{B} = (3)(5) + (4)(-12) = 15 - 48 = -33 \\]"
-    },
-    {
-      id: 8,
-      q: "$\\overline{A} = 2\\hat{i} - \\hat{j} + 3\\hat{k}$ হলে $|\\overline{A}|$ এর মান কত?",
-      options: ["$\\sqrt{6}$", "$\\sqrt{10}$", "$\\sqrt{14}$", "$\\sqrt{20}$"],
-      answer: 2,
-      explain: "Answer --(C) <br> ব্যাখ্যা:<br>\\[ |\\overline{A}| = \\sqrt{2^2 + (-1)^2 + 3^2} = \\sqrt{4 + 1 + 9} = \\sqrt{14} \\]"
-    },
-    {
-      id: 9,
-      q: "$\\overline{A} = \\hat{i} + 2\\hat{j} - 3\\hat{k}$ এবং $\\overline{B} = 2\\hat{i} - \\hat{j} + \\hat{k}$ হলে $\\overline{A} - 2\\overline{B} = ?$",
-      options: ["$-3\\hat{i} + 4\\hat{j} - 5\\hat{k}$", "$-3\\hat{i} - 4\\hat{j} - 5\\hat{k}$", "$-3\\hat{i} + 4\\hat{j} + 5\\hat{k}$", "$3\\hat{i} + 4\\hat{j} - 5\\hat{k}$"],
-      answer: 0,
-      "explain": "Answer --(A)<br>ব্যাখ্যা:<br>\\[ \\begin{align*} \\overline{A} - 2\\overline{B} &= (\\hat{i} + 2\\hat{j} - 3\\hat{k}) - 2(2\\hat{i} - \\hat{j} + \\hat{k}) \\\\ &= (1-4)\\hat{i} + (2+2)\\hat{j} + (-3-2)\\hat{k} \\\\ &= -3\\hat{i} + 4\\hat{j} - 5\\hat{k} \\end{align*} \\]"
-
-    },
-    {
-      id: 10,
-      q: "$\\overline{A} = 3\\hat{i} - 2\\hat{j} + \\hat{k}$ এবং $\\overline{B} = \\hat{i} + \\hat{j} - 2\\hat{k}$ হলে $\\overline{A} \\cdot \\overline{B} = ?$",
-      options: ["$-1$", "$0$", "$1$", "$3$"],
-      answer: 0,
-      explain: "Answer --(A) <br> ব্যাখ্যা:<br>\\[ \\overline{A} \\cdot \\overline{B} = (3)(1) + (-2)(1) + (1)(-2) = 3 - 2 - 2 = -1 \\]"
-    },
-    {
-      id: 11,
-      q: "$\\overline{A} = 4\\hat{i} + 3\\hat{j}$ এবং $\\overline{B} = 2\\hat{i} - 6\\hat{j}$ হলে $\\overline{A} + \\overline{B} = ?$",
-      options: ["$6\\hat{i} - 3\\hat{j}$", "$6\\hat{i} + 9\\hat{j}$", "$2\\hat{i} + 9\\hat{j}$", "$2\\hat{i} - 3\\hat{j}$"],
-      answer: 0,
-      explain: "Answer --(A) <br> ব্যাখ্যা:<br>\\[ \\overline{A} + \\overline{B} = (4+2)\\hat{i} + (3-6)\\hat{j} = 6\\hat{i} - 3\\hat{j} \\]"
-    },
-    {
-      id: 12,
-      q: "$\\overline{A} = 2\\hat{i} - 3\\hat{j} + \\hat{k}$ এবং $\\overline{B} = -\\hat{i} + 2\\hat{j} + 3\\hat{k}$ হলে $\\overline{A} \\times \\overline{B} = ?$",
-      options: ["$-11\\hat{i} - 7\\hat{j} + \\hat{k}$", "$-11\\hat{i} + 7\\hat{j} + \\hat{k}$", "$11\\hat{i} - 7\\hat{j} + \\hat{k}$", "$11\\hat{i} + 7\\hat{j} - \\hat{k}$"],
-      answer: 0,
-      "explain": "Answer --(A)<br>ব্যাখ্যা:<br>\\[ \\begin{align*} \\overline{A} \\times \\overline{B} &= \\begin{vmatrix} \\hat{i} & \\hat{j} & \\hat{k} \\\\ 2 & -3 & 1 \\\\ -1 & 2 & 3 \\end{vmatrix} \\\\ &= (-9-2)\\hat{i} - (6+1)\\hat{j} + (4-3)\\hat{k} \\\\ &= -11\\hat{i} - 7\\hat{j} + \\hat{k} \\end{align*} \\]"
-
-    },
-    {
-      id: 13,
-      q: "$\\overline{A} = 5\\hat{i} - 12\\hat{j}$ হলে $|\\overline{A}|$ এর মান কত?",
-      options: ["$7$", "$13$", "$17$", "$25$"],
-      answer: 1,
-      explain: "Answer --(B) <br> ব্যাখ্যা:<br>\\[ |\\overline{A}| = \\sqrt{5^2 + (-12)^2} = \\sqrt{25 + 144} = \\sqrt{169} = 13 \\]"
-    },
-    {
-      id: 14,
-      q: "$\\overline{A} = 3\\hat{i} + 4\\hat{j} - 5\\hat{k}$ এবং $\\overline{B} = 2\\hat{i} - \\hat{j} + 3\\hat{k}$ হলে $\\overline{A} \\cdot \\overline{B} = ?$",
-      options: ["$-5$", "$5$", "$-19$", "$19$"],
-      answer: 2,
-      explain: "Answer --(C) <br> ব্যাখ্যা:<br>\\[ \\overline{A} \\cdot \\overline{B} = (3)(2) + (4)(-1) + (-5)(3) = 6 - 4 - 15 = -13 \\]"
-    },
-    {
-      id: 15,
-      q: "$\\overline{A} = 2\\hat{i} - \\hat{j} + 3\\hat{k}$ এবং $\\overline{B} = \\hat{i} + 2\\hat{j} - \\hat{k}$ হলে $3\\overline{A} - 2\\overline{B} = ?$",
-      options: ["$4\\hat{i} - 7\\hat{j} + 11\\hat{k}$", "$4\\hat{i} + 7\\hat{j} + 11\\hat{k}$", "$4\\hat{i} - 7\\hat{j} - 11\\hat{k}$", "$-4\\hat{i} - 7\\hat{j} + 11\\hat{k}$"],
-      answer: 0,
-      "explain": "Answer --(A)<br>ব্যাখ্যা:<br>\\[ \\begin{align*} 3\\overline{A} - 2\\overline{B} &= 3(2\\hat{i} - \\hat{j} + 3\\hat{k}) - 2(\\hat{i} + 2\\hat{j} - \\hat{k}) \\\\ &= (6-2)\\hat{i} + (-3-4)\\hat{j} + (9+2)\\hat{k} \\\\ &= 4\\hat{i} - 7\\hat{j} + 11\\hat{k} \\end{align*} \\]"
-
-    }
-  ];
+const QUESTIONS = [
+  {
+    id: 1,
+    q: "<span>'by and large' means--</span><span class='bcs-tag'>44th BCS</span>",
+    options: ["everywhere", "very large", "mostly", "far away"],
+    answer: 2,
+    explain: "Answer --(B) <br> ব্যাখ্যা: 'by and large' অর্থ প্রধানত বা মূলত, 'mostly' অর্থ অধিকাংশ ক্ষেত্রে বা অধিকাংশে <br> 'very large মানে হল-খুব বড়,far away মানে দূরে। সুতরাং 'by and large' মানে হল-'mostly'  "
+  },
+  {
+    id:2,
+    q: "<span> What is the plural form of 'Sheep'?</span><span class='bcs-tag'>44th BCS</span>",
+    options: ["Sheeps", "Sheep", "Sheepses", "Sheepen"],
+    answer: 1,
+    explain: "Answer --(B) <br> ব্যাখ্যা: 'Sheep' এর বহুবচনও 'Sheep'। এটি একটি অস্বাভাবিক বহুবচন। "
+  },
+  {
+    id:3,
+    q: "<span> 'to get along with' means--</span><span class='bcs-tag'>44th BCS</span>",
+    options: ["to adjust", "to interest", "to accompany", "to walk"],
+    answer: 0,
+    explain: "Answer --(A) <br> ব্যাখ্যা: 'to get along with' এর অর্থ হল 'to adjust' বা 'মিলিয়ে চলা'। "
+  },
+  {
+    id:4,
+    q: "<span>What kind of noun is 'river'</span><span class='bcs-tag'>44th BCS</span>",
+    options: ["Common noun", "Proper noun", "Collective noun", "Abstract noun"],
+    answer: 0,
+    explain: "Answer --(A) <br> ব্যাখ্যা: 'river' common  noun কারন river দ্বারা কোন নির্দিষ্ট river কে বুঝানো হয় নি। তাছাড়া কোন শব্দ যখন একজাতীয় প্রাণী ও বস্তুর সকলকেই বুঝায় তখন তাকে Common Noun বলে।"
+  },
+  {
+    id:5,
+    q: "<span>Fill in the blank: 'She went to New Market__'</span><span class='bcs-tag'>43th BCS</span>",
+    options: ["on feet", "by foot", "by walking","on foot"],
+    answer: 3,
+    explain: "Answer --(D) <br> ব্যাখ্যা: <br> সাধারণত কোন জায়গায় পায়ে হেঁটে যাওয়া বুঝাতে 'on foot' ব্যবহার করা হয়। <br> অন্য দিকে 'by' সাধারণত পরিবহনের একটি মাধ্যমে (যেমনঃ ট্রেন, গাড়ি, নৌকা, প্লেন ইত্যাদি) কোথাও যাওয়া বুঝাতে ব্যবহার হয়। তাই 'by foot' হবে না। <br> আবার, 'walking' শব্দটি gerund বা present participle, তাই এর আগে 'by' যুক্তিযুক্ত নয়। "
+  },
+  {
+    id:6,
+    q: "<span>Fill in the gap: 'Birds fly __ in the sky.'</span><span class='bcs-tag'>43th BCS</span>",
+    options: ["random", "at large", "at a stitch","are long"],
+    answer: 1,
+    explain: "Answer--(B) <br> ব্যাখ্যা: 'at large' অর্থ 'মুক্তভাবে' বা 'বিনা বাধায়'। <br> অন্য দিকে, 'random' অর্থ 'যে কোনভাবে'<br> 'at a stitch' অর্থ 'একটানা' বা 'বিরতিহীনভাবে'<br> 'are long' অর্থ 'দীর্ঘ'। <br> সুতরাং Birds fly at large in the sky. অর্থ পাখিরা আকাশে মুক্তভাবে উড়ে。" 
+  },
+  {
+    id:7,
+    q: "<span>'To doctor an animal' means--</span><span class='bcs-tag'>42th BCS</span>",
+    options: ["to treat it", "to sterilize it", "to poison it","to cure it"],
+    answer: 1,
+    explain: "Answer--(B) <br> ব্যাখ্যা: 'to doctor an animal' এর অর্থ হল 'to sterilize it' বা 'একটি প্রাণীকে নির্বীজিত করা'। <br> অন্য দিকে, 'to treat it' অর্থ 'এটি চিকিৎসা করা', 'to poison it' অর্থ 'এটি বিষাক্ত করা', এবং 'to cure it' অর্থ 'এটি নিরাময় করা'। <br> সুতরাং সঠিক উত্তর হল 'to sterilize it'।"
+  },
+  {
+    id:8,
+    q: "<span>Identify the determiner in the sentence 'Bring me that book'</span><span class='bcs-tag'>42th BCS</span>",
+    options: ["bring", "me", "that","book"],
+    answer: 2,
+    explain: "Answer--(C) <br> ব্যাখ্যা: <br> যেসকল শব্দ Noun এর পূর্বে বসে Noun এর নির্দিষ্টতা, অনির্দিষ্টতা, পরিমাণ, সংখ্যা ইত্যাদি নির্দেশ করে, তাকে determiner বলে। 'That' হল demonstrative determiner. Demonstrative pronoun গুলো যেমন- this,that,these,those হল demonstrative determiner. <br> অন্য দিকে, 'bring' একটি verb, 'me' একটি pronoun, এবং 'book' একটি noun। সুতরাং সঠিক উত্তর হল 'that'।"
+  },
+  {
+    id:9,
+    q: "<span>What is the noun form of the word 'know'?</span><span class='bcs-tag'>41th BCS</span>",
+    options: ["knowing", "knowledge", "knowledgeable","known"],
+    answer: 1,
+    explain: "Answer--(B) <br> ব্যাখ্যা: 'know' এর noun form হল 'knowledge'। 'knowing' হল gerund বা present participle, 'knowledgeable' হল adjective, এবং 'known' হল past participle। সুতরাং সঠিক উত্তর হল 'knowledge'।"
+  },
+  {
+    id:10,
+    q: "<span>Identify the word that can be used as both singular and plural:</span><span class='bcs-tag'>41th BCS</span>",
+    options: ["wood", "issue", "fish","light"],
+    answer: 2,
+    explain: "Answer--(C) <br> ব্যাখ্যা: 'fish' শব্দটি একবচন এবং বহুবচন উভয় ক্ষেত্রেই ব্যবহৃত হয়। উদাহরণস্বরূপ, 'I caught a fish' (একবচন) এবং 'I caught three fish' (বহুবচন)। অন্যদিকে, 'wood', 'issue', এবং 'light' শব্দগুলি সাধারণত একবচন বা বহুবচন হিসাবে ব্যবহৃত হয় না।"
+  },
+  {
+    id:11,
+    q: "<span>Identify the determiner in the following sentence 'I have no news for you'</span><span class='bcs-tag'>40th BCS</span>",
+    options: ["have", "news", "no","for"],
+    answer: 2,
+    explain: "Answer--(C) <br> ব্যাখ্যা: <br> যেসকল শব্দ Noun এর পূর্বে বসে Noun এর নির্দিষ্টতা, অনির্দিষ্টতা, পরিমাণ, সংখ্যা ইত্যাদি নির্দেশ করে, তাকে determiner বলে। 'No' হল determiner যা এখানে 'news' এর পরিমাণ নির্দেশ করছে। <br> অন্য দিকে, 'have' একটি verb, 'news' একটি noun, এবং 'for' একটি preposition। সুতরাং সঠিক উত্তর হল 'no'।"
+  },
+  {
+    id:12,
+    q: "<span>He does not adhere __ any principle</span><span class='bcs-tag'>45th BCS</span>",
+    options: ["by", "in", "at","to"],
+    answer: 3,
+    explain: "Answer--(D) <br> ব্যাখ্যা: 'adhere to' একটি phrase যার অর্থ 'কোনো কিছু মেনে চলা' বা 'অনুসরণ করা'। তাই সঠিক উত্তর হল 'to'। <br> অন্য দিকে, 'by', 'in', এবং 'at' এই context এ সঠিক preposition নয়।"
+  },
+];
 
   // ----------------------------
   // State
@@ -465,23 +602,32 @@
     saveState({selectedIds, selectedMap, endTime, submitted});
   }
 
-function startExam(){
+  function startExam(){
+    // Page refresh দিয়ে নতুন exam শুরু
+    location.reload();
+
+    // নিচের কোডের কারণে, reload হওয়ার পরে নতুন state load হবে
+    // তাই নিচের অংশ optional, শুধু persist ও renderQuestions() reload-এর পর চলবে
+    
     introEl.classList.add('hidden');
 
-    // pick random questions and shuffle their order
-    selectedIds = pick(QUESTIONS, EXAM_SIZE)
-                    .sort(() => Math.random() - 0.5)  // shuffle
-                    .map(q => q.id);
+    const shuffled = [...QUESTIONS];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
 
+    selectedIds = shuffled.slice(0, EXAM_SIZE).map(q => q.id);
     selectedMap = {};
     submitted = false;
-    endTime = Date.now() + EXAM_MINUTES*60*1000;
+    endTime = Date.now() + EXAM_MINUTES * 60 * 1000;
+
     persist();
     renderQuestions();
     submitBtn.disabled = false;
     startTimer();
-}
-
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   function startTimer(){
     if(timerHandle) clearInterval(timerHandle);
@@ -518,13 +664,48 @@ function startExam(){
     markReview(details);
     submitBtn.disabled = true;
     persist();
-    // Scroll to first question after submitting
+    
+    // Scroll to top after submitting
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function resetExam(){
     clearState();
     location.reload();
+  }
+
+  // ----------------------------
+  // Feedback Form Handling
+  // ----------------------------
+  function setupFeedbackForm() {
+    const form = document.getElementById('feedbackForm');
+    const statusEl = document.getElementById('formStatus');
+    
+    // Add hidden Formspree fields for better integration
+    const formAction = form.getAttribute('action');
+    
+    form.addEventListener('submit', function(e) {
+      // Show loading state
+      const submitButton = form.querySelector('button[type="submit"]');
+      const originalText = submitButton.textContent;
+      
+      submitButton.disabled = true;
+      submitButton.textContent = 'Sending...';
+      statusEl.className = 'form-status';
+      statusEl.textContent = 'Sending your feedback...';
+      statusEl.style.display = 'block';
+      
+      // Allow the form to submit normally to Formspree
+      // Formspree will handle the redirection to their thank you page
+    });
+    
+    // Check if we're returning from Formspree submission
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('success')) {
+      statusEl.textContent = 'Thank you for your feedback! We appreciate your input.';
+      statusEl.className = 'form-status success';
+      statusEl.style.display = 'block';
+    }
   }
 
   // ----------------------------
@@ -535,7 +716,7 @@ function startExam(){
   resetBtn.addEventListener('click', resetExam);
 
   // ----------------------------
-  // Load saved state if exists
+  // Initialize
   // ----------------------------
   const state = loadState();
   if(state){
@@ -555,15 +736,9 @@ function startExam(){
     }
   }
 
+  // Setup feedback form
+  setupFeedbackForm();
+
   </script>
 </body>
 </html>
-
-
-
-
-<!--
-আমি  চাই যে--
-(১) 'submit' এ click করলে page  auto scroll হয়ে একদম top এ চলে আসবে।  
-(2) আর start exam এ click করলে question গুলো properly randomized হতে হবে। একই প্রশ্ন বার বার প্রথমে আসা যাবে না।
- আর অন্য কোন পরিবর্তন চাই না। মনে রাখবা যে-- আর অন্য কোন পরিবর্তন চাই না। corrected full code দাও।  corrected full code দাও।-->
