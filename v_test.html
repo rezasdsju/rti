@@ -704,7 +704,7 @@
   "options": ["$\\vec{A}\\cdot(\\vec{B}\\times\\vec{C})=0$", "$\\vec{A}\\cdot\\vec{B}\\cdot\\vec{C}=0$", "$\\vec{A}\\times(\\vec{B}\\times\\vec{C})=0$", "$(\\vec{A}\\cdot\\vec{B})\\times\\vec{C}=0$"],
   "answer": 0,
   "explain": "Answer: (A) $\\vec{A}\\cdot(\\vec{B}\\times\\vec{C})=0$ <br><b>ব্যাখ্যা:</b><br>তিনটি ভেক্টর $\\vec{A}, \\vec{B}, \\vec{C}$ সমতলীয় হবে যদি তাদের স্কেলার ট্রিপল প্রোডাক্ট শূন্য হয়। অর্থাৎ যেকোনো দুইটি ভেক্টর এর ক্রস গুণনের সাথে অপর ভেক্টর এর ডট গুণফল শুন্য হবে। অর্থাৎ, $\\vec{A} \\cdot (\\vec{B} \\times \\vec{C}) = 0$<br><br>স্কেলার ট্রিপল প্রোডাক্ট হল একটি ভেক্টরের ডট প্রোডাক্ট অন্য দুই ভেক্টরের ক্রস প্রোডাক্টের সাথে। এটি ভেক্টর তিনটির দ্বারা গঠিত প্যারালেলিপাইপের আয়তনকে প্রতিনিধিত্ব করে।<br><br>যদি এই আয়তন শূন্য হয়, তাহলে ভেক্টর তিনটি একই সমতলে অবস্থিত, অর্থাৎ তারা সমতলীয়।<br><br>উদাহরণ: ধরা যাক,<br>$\\vec{A} = \\hat{i} + 2\\hat{j} + 3\\hat{k}$<br>$\\vec{B} = 4\\hat{i} + 5\\hat{j} + 6\\hat{k}$<br>$\\vec{C} = 7\\hat{i} + 8\\hat{j} + 9\\hat{k}$<br><br>প্রথমে, $\\vec{B} \\times \\vec{C}$ নির্ণয় করি:<br>\\[ \\vec{B} \\times \\vec{C} = \\begin{vmatrix} \\hat{i} & \\hat{j} & \\hat{k} \\\\ 4 & 5 & 6 \\\\ 7 & 8 & 9 \\end{vmatrix} = \\hat{i}(5\\cdot9 - 6\\cdot8) - \\hat{j}(4\\cdot9 - 6\\cdot7) + \\hat{k}(4\\cdot8 - 5\\cdot7) \\]<br>\\[ = \\hat{i}(45 - 48) - \\hat{j}(36 - 42) + \\hat{k}(32 - 35) \\]<br>\\[ = -3\\hat{i} + 6\\hat{j} - 3\\hat{k} \\]<br><br>এখন, $\\vec{A} \\cdot (\\vec{B} \\times \\vec{C})$ নির্ণয় করি:<br>\\[ \\vec{A} \\cdot (\\vec{B} \\times \\vec{C}) = (1)(-3) + (2)(6) + (3)(-3) = -3 + 12 - 9 = 0 \\]<br><br>যেহেতু স্কেলার ট্রিপল প্রোডাক্ট শূন্য, তাই ভেক্টর তিনটি সমতলীয়।"
-},*/
+},
 {
     "id": 20,
     "q": "<span>$\\vec{A}$ ও $\\vec{B}$ দুটি ভেক্টর হলে, $(\\vec{A}\\times\\vec{B})+(\\vec{B}\\times\\vec{A})=?$</span><span class='bcs-tag'>RU:16-17</span>",
@@ -718,14 +718,30 @@
   options: ["$-A^{2}$", "0", "$-B^{2}$", "1"],
   answer: 1, 
   explain: "Answer: (B) -- $0$ <br><b>ব্যাখ্যা:</b><br>যেহেতু $\\vec{A} = -\\vec{B}$, তাই $\\vec{A}\\times\\vec{B} = -\\vec{B}\\times\\vec{B}$ = $|\\vec{-B}||\\vec{B}|sin180^\\circ= 0$। <br> উল্লেখ্য যে,  $-\\vec{B}$ এবং $\\vec{B}$ এর মধ্যবর্তী কোণ $180^\\circ$",
-},
-{
+}, */
+/*{
   id: 22,
   q: "<span>যদি $\\vec{A}=\\hat{i}+\\hat{j}+\\hat{k}, \\vec{B}=2\\hat{i}+2\\hat{j}+2\\hat{k}$, then $\\vec{A}\\times\\vec{B}=?$</span><span class='bcs-tag'>DU:03-04</span>",
   options: ["$3\\hat{i}+3\\hat{j}+3\\hat{k}$", "$2\\hat{i}+2\\hat{j}+2\\hat{k}$", "$\\sqrt{12}(\\hat{i}+\\hat{j}+\\hat{k})$", "0"],
   answer: 3,
   explain: "Answer: (D) -- $0$ <br><b>ব্যাখ্যা:</b><br> Shortcut: যেহেতু $\\vec{B} = 2\\vec{A}$, তাই $\\vec{A}$ এবং $\\vec{B}$ পরস্পর সমান্তরাল।<br>সমান্তরাল ভেক্টরের ক্রস প্রোডাক্ট সবসময় শূন্য হয়। সুতরাং, $\\vec{A}\\times\\vec{B} = 0$। <br> <br> বিস্তারিত ব্যাখ্যা: <br>\\[ \\vec{A} \\times \\vec{B} = \\begin{vmatrix} \\hat{i} & \\hat{j} & \\hat{k} \\\\ 1 & 1 & 1 \\\\ 2 & 2 & 2 \\end{vmatrix} \\]<br>\\[ = \\hat{i}(1\\cdot2 - 1\\cdot2) - \\hat{j}(1\\cdot2 - 1\\cdot2) + \\hat{k}(1\\cdot2 - 1\\cdot2) \\]<br>\\[ = \\hat{i}(0) - \\hat{j}(0) + \\hat{k}(0) = 0 \\]"
+},  
+{
+  id: 23,
+  q: "<span>$\\vec{A}$ ও $\\vec{B}$ দুটি ভেক্টর রাশি হলে নিচের কোনটি সঠিক?</span><span class='bcs-tag'>JNU:15-16</span>",
+  options: ["$\\vec{A}\\times\\vec{B}=\\vec{B}\\times\\vec{A}$", "$\\vec{A}\\times\\vec{B}=-(\\vec{B}\\times\\vec{A})$","কোনটি নয়","A ও B উভয়ই" ], 
+  answer: 1,
+  explain: "Answer: (B) -- $-\\vec{B}\\times\\vec{A}$ <br><b>ব্যাখ্যা:</b><br>ভেক্টর ক্রস গুণফল একটি অ্যান্টিসিমেট্রিক অপারেশন। অর্থাৎ, $\\vec{A} \\times \\vec{B} = - (\\vec{B} \\times \\vec{A})$।"
+},*/
+{
+  id: 24,
+  q: "<span>$\\vec{A}$ ও $\\vec{B}$ ভেক্টরের লম্ব বরাবর একক ভেক্টরের রাশিমালা কোনটি?</span><span class='bcs-tag'>JNU:10-11</span>",
+  options: ["$\\widehat{\\eta}=\\dfrac{|\\vec{A}\\times\\vec{B}|}{\\vec{A}\\times\\vec{B}}$", "$\\widehat{\\eta}=\\dfrac{\\vec{A}\\times\\vec{B}}{|\\vec{A}\\times\\vec{B}|}$","$\\widehat{\\eta}=\\dfrac{\\vec{A}\\times\\vec{B}}{|\\vec{A}\\cdot\\vec{B}|}$","$\\widehat{\\eta}=\\dfrac{\\vec{A}\\cdot\\vec{B}}{|\\vec{A}\\cdot\\vec{B}|}$"],
+  answer: 1,
+  explain: "Answer: (B) -- $\\widehat{\\eta}=\\dfrac{\\vec{A}\\times\\vec{B}}{|\\vec{A}\\times\\vec{B}|}$ <br><b>ব্যাখ্যা:</b><br>দুটি ভেক্টর $\\vec{A}$ এবং $\\vec{B}$ এর ক্রস প্রোডাক্ট $\\vec{A} \\times \\vec{B}$ একটি নতুন ভেক্টর তৈরি করে যা উভয় ভেক্টরের লম্ব বরাবর থাকে।<br><br>একক ভেক্টর হল এমন একটি ভেক্টর যার মান 1।<br><br>একটি ভেক্টরের একক রাশিমালা নির্ণয় করতে, সেই ভেক্টরকে তার মান দ্বারা ভাগ করতে হয়। সুতরাং, $\\vec{A} \\times \\vec{B}$ এর একক রাশিমালা হবে:<br>\\[ \\widehat{\\eta} = \\dfrac{\\vec{A} \\times \\vec{B}}{|\\vec{A} \\times \\vec{B}|} \\]<br>এটি নিশ্চিত করে যে $\\hat{\\eta}$ একটি একক ভেক্টর যা $\\vec{A}$ এবং $\\vec{B}$ এর লম্ব বরাবর নির্দেশ করে।"
 },
+
+
   ]; 
  
   // ----------------------------
